@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
-    static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         while (true) {
@@ -44,7 +44,7 @@ public class Main {
         String note;
         Date date;
 
-        while(true){
+        while (true) {
             System.out.print(Constants.TRANSACTION_MENU);
             int transactionOption = scanner.nextInt();
 
@@ -117,7 +117,7 @@ public class Main {
         int categoryId;
         TransactionType transactionType;
 
-        while(true){
+        while (true) {
             System.out.print(Constants.CATEGORY_MENU);
             int categoryOption = scanner.nextInt();
 
@@ -169,7 +169,7 @@ public class Main {
         int categoryId;
         double budgetAmount;
 
-        while(true){
+        while (true) {
             System.out.print(Constants.BUDGET_MENU);
             int budgetOption = scanner.nextInt();
 

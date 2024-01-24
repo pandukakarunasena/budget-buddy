@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TransactionManager {
+public final class TransactionManager {
     /** Transaction List. */
     private final List<Transaction> transactionList;
 
@@ -83,8 +83,12 @@ public class TransactionManager {
     /**
      * Get Transaction List from Category ID.
      *
-     * @param categoryId Category ID
-     * @return Transaction List
+     * @param transactionId     Transaction ID
+     * @param amount            Amount
+     * @param transactionType   Transaction Type
+     * @param categoryId        Category ID
+     * @param note              Note
+     * @param date              Date
      */
     public void editTransaction(int transactionId, double amount, TransactionType transactionType, int categoryId, String note, Date date) {
         Transaction transaction = getTransaction(transactionId);

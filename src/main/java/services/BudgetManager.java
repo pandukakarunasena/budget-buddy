@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 // Singleton class
-public class BudgetManager {
+public final class BudgetManager {
     /** Budget List. */
     private final List<Budget> budgetList;
 

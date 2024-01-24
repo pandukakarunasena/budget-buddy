@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Singleton class
-public class CategoryManager {
+public final class CategoryManager {
     /** Category List. */
     private final List<Category> categoryList;
 
