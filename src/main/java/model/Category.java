@@ -35,7 +35,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return categoryId + "\t\t" + categoryName;
+        return categoryId + "\t\t" + categoryName + "\t\t" + transactionType;
     }
 }
 
