@@ -33,7 +33,12 @@ public class TransactionManager {
 
     // Get Transaction from Transaction ID
     public Transaction getTransaction(int transactionId) {
-        return transactionList.get(transactionId);
+        for (Transaction transaction : transactionList) {
+            if (transaction.getTransactionId() == transactionId) {
+                return transaction;
+            }
+        }
+        throw new IllegalArgumentException("Transaction not found for transaction ID: " + transactionId);
     }
 
     // Get Transaction List
@@ -54,7 +59,7 @@ public class TransactionManager {
 
     // Remove Transaction
     public void removeTransaction(int transactionId) {
-        transactionList.remove(transactionId);
+        transactionList.remove(getTransaction(transactionId));
     }
 }
 
