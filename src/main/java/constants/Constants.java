@@ -1,3 +1,6 @@
+/**
+ * Constants class contains all the constants used in the application.
+ */
 package constants;
 
 public class Constants {

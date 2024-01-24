@@ -1,3 +1,6 @@
+/**
+ * This class is used to manage and store the Budgets.
+ */
 package services;
 
 import constants.Constants;
@@ -7,14 +10,24 @@ import java.util.*;
 
 // Singleton class
 public class BudgetManager {
+    /** Budget List. */
     private final List<Budget> budgetList;
-    
+
+    /** BudgetManager instance. */
     private static BudgetManager instance;
 
+    /**
+     * Constructor for BudgetManager.
+     */
     private BudgetManager() {
         this.budgetList = new ArrayList<>();
     }
 
+    /**
+     * Get BudgetManager instance.
+     *
+     * @return BudgetManager instance
+     */
     public static BudgetManager getInstance() {
         if (instance == null) {
             instance = new BudgetManager();
@@ -22,9 +35,14 @@ public class BudgetManager {
         return instance;
     }
 
-    // Add Budget
+    /**
+     * Add Budget.
+     *
+     * @param categoryId   Category ID
+     * @param budgetAmount Budget Amount
+     */
     public void addBudget(int categoryId, double budgetAmount) {
-        for(Budget budget: budgetList) {
+        for (Budget budget: budgetList) {
             if(budget.getCategoryId() == categoryId) {
                 throw new IllegalArgumentException(Constants.ERROR_MESSAGE_BUDGET_ALREADY_EXIST + categoryId);
             }
@@ -33,9 +51,14 @@ public class BudgetManager {
         budgetList.add(budget);
     }
 
-    // Get Budget from Category ID
+    /**
+     * Get Budget from Category ID.
+     *
+     * @param categoryId Category ID
+     * @return Budget
+     */
     public Budget getBudget(int categoryId) {
-        for(Budget budget: budgetList) {
+        for (Budget budget: budgetList) {
             if(budget.getCategoryId() == categoryId) {
                 return budget;
             }
@@ -43,22 +66,40 @@ public class BudgetManager {
         throw new NoSuchElementException(Constants.ERROR_MESSAGE_BUDGET_NOT_FOUND + categoryId);
     }
 
-    // Get Budget Amount from Category ID
+    /**
+     * Get Budget Amount from Category ID.
+     *
+     * @param categoryId Category ID
+     * @return Budget Amount
+     */
     public double getBudgetAmount(int categoryId) {
         return getBudget(categoryId).getBudgetAmount();
     }
 
-    // Set Budget Amount from Category ID
+    /**
+     * Set Budget Amount from Category ID.
+     *
+     * @param categoryId   Category ID
+     * @param budgetAmount Budget Amount
+     */
     public void setBudgetAmount(int categoryId, double budgetAmount) {
         getBudget(categoryId).setBudgetAmount(budgetAmount);
     }
 
-    // Remove Budget from Category ID
+    /**
+     * Remove Budget from Category ID.
+     *
+     * @param categoryId Category ID
+     */
     public void removeBudget(int categoryId) {
         budgetList.remove(getBudget(categoryId));
     }
 
-    // Get Budgets List
+    /**
+     * Get Budget List.
+     *
+     * @return Budget List
+     */
     public List<Budget> getBudgets() {
         return budgetList;
     }
