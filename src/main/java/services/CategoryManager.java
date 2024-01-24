@@ -1,5 +1,6 @@
 package services;
 
+import constants.Constants;
 import constants.TransactionType;
 import model.Category;
 
@@ -38,7 +39,7 @@ public class CategoryManager {
                 return category;
             }
         }
-        throw new IllegalArgumentException("Category not found for category ID: " + categoryId);
+        throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND + categoryId);
     }
 
     // Get Category List
@@ -67,6 +68,8 @@ public class CategoryManager {
     // Remove Category
     public void removeCategory(int categoryId) {
         categoryList.remove(getCategory(categoryId));
+        // TODO: Remove budget for this category
+        // TODO: Remove transactions for this category?
     }
 }
 

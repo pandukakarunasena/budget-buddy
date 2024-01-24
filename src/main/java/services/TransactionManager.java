@@ -1,5 +1,6 @@
 package services;
 
+import constants.Constants;
 import constants.TransactionType;
 import model.Transaction;
 
@@ -38,7 +39,7 @@ public class TransactionManager {
                 return transaction;
             }
         }
-        throw new IllegalArgumentException("Transaction not found for transaction ID: " + transactionId);
+        throw new IllegalArgumentException(Constants.ERROR_MESSAGE_TRANSACTION_NOT_FOUND + transactionId);
     }
 
     // Get Transaction List

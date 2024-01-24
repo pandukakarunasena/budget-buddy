@@ -1,5 +1,6 @@
 package services;
 
+import constants.Constants;
 import model.Budget;
 
 import java.util.*;
@@ -25,7 +26,7 @@ public class BudgetManager {
     public void addBudget(int categoryId, double budgetAmount) {
         for(Budget budget: budgetList) {
             if(budget.getCategoryId() == categoryId) {
-                throw new IllegalArgumentException("Budget already exists for category ID: " + categoryId);
+                throw new IllegalArgumentException(Constants.ERROR_MESSAGE_BUDGET_ALREADY_EXIST + categoryId);
             }
         }
         Budget budget = new Budget(categoryId, budgetAmount);
@@ -39,7 +40,7 @@ public class BudgetManager {
                 return budget;
             }
         }
-        throw new NoSuchElementException("Budget not found for category ID: " + categoryId);
+        throw new NoSuchElementException(Constants.ERROR_MESSAGE_BUDGET_NOT_FOUND + categoryId);
     }
 
     // Get Budget Amount from Category ID
