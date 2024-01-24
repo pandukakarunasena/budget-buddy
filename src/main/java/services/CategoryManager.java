@@ -1,5 +1,6 @@
 package services;
 
+import constants.TransactionType;
 import model.Category;
 
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class CategoryManager {
     }
 
     // Add Category
-    public void addCategory(String categoryName) {
-        Category category = new Category(lastCategoryId++, categoryName);
+    public void addCategory(String categoryName, TransactionType transactionType) {
+        Category category = new Category(lastCategoryId++, categoryName, transactionType);
         categoryList.add(category);
     }
 

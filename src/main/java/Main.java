@@ -115,6 +115,7 @@ public class Main {
 
         String categoryName;
         int categoryId;
+        TransactionType transactionType;
 
         while(true){
             System.out.print(Constants.CATEGORY_MENU);
@@ -126,7 +127,9 @@ public class Main {
                     System.out.println("Add Category");
                     System.out.print("Enter category name:");
                     categoryName = scanner.next();
-                    categoryManager.addCategory(categoryName);
+                    System.out.print("Enter transaction type (1: Income, 2: Expense):");
+                    transactionType = scanner.nextInt() == 1 ? TransactionType.Income : TransactionType.Expense;
+                    categoryManager.addCategory(categoryName, transactionType);
                     break;
                 case 2:
                     // Edit Category

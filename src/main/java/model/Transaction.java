@@ -12,8 +12,6 @@ public class Transaction {
     private String note;
     private Date date;
 
-
-
     public Transaction(int transactionId, double amount, TransactionType transactionType, int categoryId, String note, Date date) {
         this.transactionId = transactionId;
         this.amount = amount;
