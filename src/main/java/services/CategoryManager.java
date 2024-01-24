@@ -33,7 +33,12 @@ public class CategoryManager {
 
     // Get Category from Category ID
     public Category getCategory(int categoryId) {
-        return categoryList.get(categoryId);
+        for (Category category : categoryList) {
+            if (category.getCategoryId() == categoryId) {
+                return category;
+            }
+        }
+        throw new IllegalArgumentException("Category not found for category ID: " + categoryId);
     }
 
     // Get Category List
@@ -41,15 +46,27 @@ public class CategoryManager {
         return categoryList;
     }
 
+    // Get Category Type
+    public List<Category> getCategoryList(TransactionType transactionType) {
+        List<Category> filteredCategoryList = new ArrayList<>();
+        for (Category category : categoryList) {
+            if (category.getTransactionType() == transactionType) {
+                filteredCategoryList.add(category);
+            }
+        }
+        return filteredCategoryList;
+    }
+
     // Edit Category
-    public void editCategory(int categoryId, String categoryName) {
+    public void editCategory(int categoryId, String categoryName, TransactionType transactionType) {
         Category category = getCategory(categoryId);
         category.setCategoryName(categoryName);
+        category.setTransactionType(transactionType);
     }
 
     // Remove Category
     public void removeCategory(int categoryId) {
-        categoryList.remove(categoryId);
+        categoryList.remove(getCategory(categoryId));
     }
 }
 

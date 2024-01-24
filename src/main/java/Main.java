@@ -54,7 +54,7 @@ public class Main {
                     System.out.println("Add Income Transaction");
                     System.out.print("Enter amount:");
                     amount = scanner.nextDouble();
-                    System.out.print("Enter category ID:");
+                    System.out.print("Enter category ID:"); //TODO : Show list of income categories
                     categoryId = scanner.nextInt();
                     System.out.print("Enter note:");
                     note = scanner.next();
@@ -66,7 +66,7 @@ public class Main {
                     System.out.println("Add Expense Transaction");
                     System.out.print("Enter amount:");
                     amount = scanner.nextDouble();
-                    System.out.print("Enter category ID:");
+                    System.out.print("Enter category ID:"); // TODO : Show list of expense categories
                     categoryId = scanner.nextInt();
                     System.out.print("Enter note:");
                     note = scanner.next();
@@ -82,7 +82,7 @@ public class Main {
                     amount = scanner.nextDouble();
                     System.out.print("Enter transaction type (1: Income, 2: Expense):");
                     transactionType = scanner.nextInt() == 1 ? TransactionType.Income : TransactionType.Expense;
-                    System.out.print("Enter category ID:");
+                    System.out.print("Enter category ID:"); // TODO : Show list of selected transaction type categories
                     categoryId = scanner.nextInt();
                     System.out.print("Enter note:");
                     note = scanner.next();
@@ -138,7 +138,9 @@ public class Main {
                     categoryId = scanner.nextInt();
                     System.out.print("Enter category name:");
                     categoryName = scanner.next();
-                    categoryManager.editCategory(categoryId, categoryName);
+                    System.out.print("Enter transaction type (1: Income, 2: Expense):");
+                    transactionType = scanner.nextInt() == 1 ? TransactionType.Income : TransactionType.Expense;
+                    categoryManager.editCategory(categoryId, categoryName, transactionType);
                     break;
                 case 3:
                     // Remove Category
