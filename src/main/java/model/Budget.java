@@ -9,6 +9,10 @@ public class Budget {
         this.budgetAmount = budgetAmount;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
     public double getBudgetAmount() {
         return budgetAmount;
     }

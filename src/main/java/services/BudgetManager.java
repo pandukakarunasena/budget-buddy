@@ -23,14 +23,23 @@ public class BudgetManager {
 
     // Add Budget
     public void addBudget(int categoryId, double budgetAmount) {
+        for(Budget budget: budgetList) {
+            if(budget.getCategoryId() == categoryId) {
+                throw new IllegalArgumentException("Budget already exists for category ID: " + categoryId);
+            }
+        }
         Budget budget = new Budget(categoryId, budgetAmount);
-        // TODO: return exception if category already has budget
         budgetList.add(budget);
     }
 
     // Get Budget from Category ID
     public Budget getBudget(int categoryId) {
-        return budgetList.get(categoryId);
+        for(Budget budget: budgetList) {
+            if(budget.getCategoryId() == categoryId) {
+                return budget;
+            }
+        }
+        throw new NoSuchElementException("Budget not found for category ID: " + categoryId);
     }
 
     // Get Budget Amount from Category ID
@@ -45,7 +54,7 @@ public class BudgetManager {
 
     // Remove Budget from Category ID
     public void removeBudget(int categoryId) {
-        budgetList.remove(categoryId);
+        budgetList.remove(getBudget(categoryId));
     }
 
     // Get Budgets List
