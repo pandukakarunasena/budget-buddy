@@ -1,3 +1,4 @@
+import constants.Constants;
 import constants.TransactionType;
 import model.Budget;
 import model.Category;
@@ -5,7 +6,6 @@ import model.Transaction;
 import services.BudgetManager;
 import services.CategoryManager;
 import services.TransactionManager;
-import util.Util;
 
 import java.util.Date;
 import java.util.List;
@@ -15,20 +15,10 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Main loop to show menu
         while (true) {
-            // Get user input to select Transactions, Categories, Budgets, or Exit
-            System.out.println("Main Menu");
-            System.out.println("\t1. Transactions");
-            System.out.println("\t2. Categories");
-            System.out.println("\t3. Budgets");
-            System.out.println("\t4. Exit");
-
-            // Get user input
-            System.out.print("Select an option:\t");
+            System.out.print(Constants.MAIN_MENU);
             int option = scanner.nextInt();
 
-            // Switch case to handle user input
             switch (option) {
                 case 1:
                     transactionMenu();
@@ -42,7 +32,7 @@ public class Main {
                 case 4:
                     System.exit(0);
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println(Constants.INVALID_OPTION);
             }
         }
     }
@@ -56,24 +46,14 @@ public class Main {
         String note;
         Date date;
 
-        // Transactions Menu Loop
         while(true){
-            // Transactions
-            System.out.println("Transactions Menu");
-            System.out.println("\t1. Add Income");
-            System.out.println("\t2. Add Expense");
-            System.out.println("\t3. Edit Transaction");
-            System.out.println("\t4. Remove Transaction");
-            System.out.println("\t5. View Transactions");
-            System.out.println("\t6. Back");
-            // Get user input
-            System.out.print("Select an option:\t");
+            System.out.print(Constants.TRANSACTION_MENU);
             int transactionOption = scanner.nextInt();
-            // Switch case to handle user input
+
             switch (transactionOption) {
                 case 1:
-                    // Add Transaction
-                    System.out.println("Add Transaction");
+                    // Add Income
+                    System.out.println("Add Income Transaction");
                     System.out.print("Enter amount:");
                     amount = scanner.nextDouble();
                     System.out.print("Enter category ID:");
@@ -84,8 +64,8 @@ public class Main {
                     transactionManager.addTransaction(amount, TransactionType.Income, categoryId, note, date);
                     break;
                 case 2:
-                    // Add Transaction
-                    System.out.println("Add Transaction");
+                    // Add Expense
+                    System.out.println("Add Expense Transaction");
                     System.out.print("Enter amount:");
                     amount = scanner.nextDouble();
                     System.out.print("Enter category ID:");
@@ -129,7 +109,7 @@ public class Main {
                     // Back
                     return;
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println(Constants.INVALID_OPTION);
             }
         }
     }
@@ -140,19 +120,10 @@ public class Main {
         String categoryName;
         int categoryId;
 
-        // Categories Menu Loop
         while(true){
-            // Categories
-            System.out.println("Categories Menu");
-            System.out.println("\t1. Add Category");
-            System.out.println("\t2. Edit Category");
-            System.out.println("\t3. Remove Category");
-            System.out.println("\t4. View Categories");
-            System.out.println("\t5. Back");
-            // Get user input
-            System.out.print("Select an option:\t");
+            System.out.print(Constants.CATEGORY_MENU);
             int categoryOption = scanner.nextInt();
-            // Switch case to handle user input
+
             switch (categoryOption) {
                 case 1:
                     // Add Category
@@ -190,7 +161,7 @@ public class Main {
                     // Back
                     return;
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println(Constants.INVALID_OPTION);
             }
         }
     }
@@ -201,19 +172,10 @@ public class Main {
         int categoryId;
         double budgetAmount;
 
-        // Budgets Menu Loop
         while(true){
-            // Budgets
-            System.out.println("Budgets Menu");
-            System.out.println("\t1. Add Budget");
-            System.out.println("\t2. Edit Budget");
-            System.out.println("\t3. Remove Budget");
-            System.out.println("\t4. View Budgets");
-            System.out.println("\t5. Back");
-            // Get user input
-            System.out.print("Select an option:\t");
+            System.out.print(Constants.BUDGET_MENU);
             int budgetOption = scanner.nextInt();
-            // Switch case to handle user input
+
             switch (budgetOption) {
                 case 1:
                     // Add Budget
@@ -253,7 +215,7 @@ public class Main {
                     // Back
                     return;
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println(Constants.INVALID_OPTION);
             }
         }
     }
