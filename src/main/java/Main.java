@@ -1,15 +1,11 @@
 import constants.Constants;
 import constants.TransactionType;
-import model.Budget;
-import model.Category;
-import model.Transaction;
 import services.BudgetManager;
 import services.CategoryManager;
 import services.TransactionManager;
 import util.Util;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {

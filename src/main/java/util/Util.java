@@ -1,7 +1,5 @@
 package util;
 
-import constants.TransactionType;
-
 import java.util.List;
 
 public class Util {
