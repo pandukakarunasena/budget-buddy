@@ -42,6 +42,7 @@ public class Main {
 
         int transactionId;
         double amount;
+        TransactionType transactionType;
         int categoryId;
         String note;
         Date date;
@@ -82,12 +83,14 @@ public class Main {
                     transactionId = scanner.nextInt();
                     System.out.print("Enter amount:");
                     amount = scanner.nextDouble();
+                    System.out.print("Enter transaction type (1: Income, 2: Expense):");
+                    transactionType = scanner.nextInt() == 1 ? TransactionType.Income : TransactionType.Expense;
                     System.out.print("Enter category ID:");
                     categoryId = scanner.nextInt();
                     System.out.print("Enter note:");
                     note = scanner.next();
                     date = new Date();
-                    transactionManager.editTransaction(transactionId, amount, TransactionType.Income, categoryId, note, date);
+                    transactionManager.editTransaction(transactionId, amount, transactionType, categoryId, note, date);
                     break;
                 case 4:
                     // Remove Transaction
