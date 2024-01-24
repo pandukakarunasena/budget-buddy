@@ -99,7 +99,6 @@ public class Main {
                 case 5:
                     // View Transactions
                     System.out.println("View Transactions");
-                    //Util.printTable(transactionManager.getTransactionList());
                     List<Transaction> transactionList = transactionManager.getTransactionList();
                     for (Transaction transaction : transactionList) {
                         System.out.println(transaction.toString());
@@ -151,7 +150,6 @@ public class Main {
                 case 4:
                     // View Categories
                     System.out.println("View Categories");
-                    //Util.printTable(categoryManager.getCategoryList());
                     List<Category> categoryList = categoryManager.getCategoryList();
                     for (Category category : categoryList) {
                         System.out.println(category.toString());
@@ -205,7 +203,6 @@ public class Main {
                 case 4:
                     // View Budgets
                     System.out.println("View Budgets");
-                    //Util.printTable(budgetManager.getBudgets());
                     List<Budget> budgetList = budgetManager.getBudgets();
                     for (Budget budget : budgetList) {
                         System.out.println(budget.toString());
