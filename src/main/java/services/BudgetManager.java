@@ -6,7 +6,9 @@ package services;
 import constants.Constants;
 import model.Budget;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 // Singleton class
 public class BudgetManager {
@@ -43,7 +45,7 @@ public class BudgetManager {
      */
     public void addBudget(int categoryId, double budgetAmount) {
         for (Budget budget: budgetList) {
-            if(budget.getCategoryId() == categoryId) {
+            if (budget.getCategoryId() == categoryId) {
                 throw new IllegalArgumentException(Constants.ERROR_MESSAGE_BUDGET_ALREADY_EXIST + categoryId);
             }
         }
@@ -59,7 +61,7 @@ public class BudgetManager {
      */
     public Budget getBudget(int categoryId) {
         for (Budget budget: budgetList) {
-            if(budget.getCategoryId() == categoryId) {
+            if (budget.getCategoryId() == categoryId) {
                 return budget;
             }
         }
