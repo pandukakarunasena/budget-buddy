@@ -6,6 +6,7 @@ import model.Transaction;
 import services.BudgetManager;
 import services.CategoryManager;
 import services.TransactionManager;
+import util.Util;
 
 import java.util.Date;
 import java.util.List;
@@ -102,10 +103,7 @@ public class Main {
                 case 5:
                     // View Transactions
                     System.out.println("View Transactions");
-                    List<Transaction> transactionList = transactionManager.getTransactionList();
-                    for (Transaction transaction : transactionList) {
-                        System.out.println(transaction.toString());
-                    }
+                    Util.printList(transactionManager.getTransactionList());
                     break;
                 case 6:
                     // Back
@@ -153,10 +151,7 @@ public class Main {
                 case 4:
                     // View Categories
                     System.out.println("View Categories");
-                    List<Category> categoryList = categoryManager.getCategoryList();
-                    for (Category category : categoryList) {
-                        System.out.println(category.toString());
-                    }
+                    Util.printList(categoryManager.getCategoryList());
                     break;
                 case 5:
                     // Back
@@ -206,10 +201,7 @@ public class Main {
                 case 4:
                     // View Budgets
                     System.out.println("View Budgets");
-                    List<Budget> budgetList = budgetManager.getBudgets();
-                    for (Budget budget : budgetList) {
-                        System.out.println(budget.toString());
-                    }
+                    Util.printList(budgetManager.getBudgets());
                     break;
                 case 5:
                     // Back
