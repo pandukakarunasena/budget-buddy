@@ -14,6 +14,10 @@ import java.util.Scanner;
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
+    private static CategoryManager categoryManager = new CategoryManager();
+    private static TransactionManager transactionManager = new TransactionManager();
+    private static BudgetManager budgetManager = new BudgetManager();
+
     public static void main(String[] args) {
         while (true) {
             System.out.print(Constants.MAIN_MENU);
@@ -70,7 +74,6 @@ public class Main {
     }
 
     private static void addCategory() {
-        CategoryManager categoryManager = CategoryManager.getInstance();
 
         try {
             System.out.println("Add Category");
@@ -86,7 +89,7 @@ public class Main {
     }
 
     private static void editCategory() {
-        CategoryManager categoryManager = CategoryManager.getInstance();
+
         String categoryName;
         int categoryId = 0;
         List<Category> categoryList = null;
@@ -120,8 +123,7 @@ public class Main {
     }
 
     public static void removeCategory() {
-        CategoryManager categoryManager = CategoryManager.getInstance();
-        TransactionManager transactionManager = TransactionManager.getInstance();
+
         int categoryId = 0;
         List<Category> categoryList = null;
         boolean isCategoryExist = false;
@@ -154,7 +156,7 @@ public class Main {
     }
 
     public static void viewCategories() {
-        CategoryManager categoryManager = CategoryManager.getInstance();
+
         List<Category> categoryList = null;
 
         try {
@@ -172,7 +174,6 @@ public class Main {
     }
 
     private static void transactionMenu() {
-        TransactionManager transactionManager = TransactionManager.getInstance();
 
         int transactionId;
         double amount;
@@ -218,8 +219,6 @@ public class Main {
         int categoryId = 0;
         String note;
         Date date;
-        TransactionManager transactionManager = TransactionManager.getInstance();
-        CategoryManager categoryManager = CategoryManager.getInstance();
         int transactionTypeIn = 0;
         TransactionType transactionType = null;
 
@@ -262,11 +261,11 @@ public class Main {
         int categoryId;
         String note;
         Date date;
-        TransactionManager transactionManager = TransactionManager.getInstance();
+
         List<Transaction> transactionList = null;
         boolean isTransactionExist = false;
         List<Category> categoryList = null;
-        CategoryManager categoryManager = CategoryManager.getInstance();
+
         boolean isCategoryExist = false;
 
         try {
@@ -313,7 +312,7 @@ public class Main {
 
     private static void removeTransaction() {
         int transactionId;
-        TransactionManager transactionManager = TransactionManager.getInstance();
+
         List<Transaction> transactionList = null;
         boolean isTransactionExist = false;
 
@@ -340,7 +339,7 @@ public class Main {
     }
 
     public static void viewTransactions() {
-        TransactionManager transactionManager = TransactionManager.getInstance();
+
         List<Transaction> transactionList = null;
 
         try {
@@ -393,7 +392,6 @@ public class Main {
 
 
     private static void budgetMenu() {
-        BudgetManager budgetManager = BudgetManager.getInstance();
 
         int categoryId;
         double budgetAmount;

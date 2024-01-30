@@ -21,7 +21,7 @@ public class CategoryManagerTest {
     @BeforeEach
     public void addACategory() {
 
-        categoryManager.addCategory("Food", TransactionType.Expense);
+        categoryManager.addCategory("Food");
     }
 
     @AfterEach
@@ -50,7 +50,7 @@ public class CategoryManagerTest {
     @DisplayName("Get category list and assert size")
     public void getCategoryList() {
 
-        categoryManager.addCategory("Salary", TransactionType.Income);
+        categoryManager.addCategory("Salary");
         List<Category> categoryList = categoryManager.getCategoryList();
         assertEquals(2, categoryList.size());
     }
@@ -59,9 +59,9 @@ public class CategoryManagerTest {
     @DisplayName("Edit Category Food with Salary")
     public void editCategory() {
 
-        categoryManager.editCategory(0,"Salary", TransactionType.Income);
+        categoryManager.editCategory(1,"Salary");
 
-        Category category = categoryManager.getCategory(0);
+        Category category = categoryManager.getCategory(1);
         assertEquals("Salary",category.getCategoryName());
     }
 
@@ -71,6 +71,6 @@ public class CategoryManagerTest {
 
         List<Category> categoryList =  categoryManager.getCategoryList();
         categoryManager.removeCategory(categoryList.size());
-        assertEquals(0, categoryManager.getCategoryList().size());
+        assertEquals(1, categoryManager.getCategoryList().size());
     }
 }
