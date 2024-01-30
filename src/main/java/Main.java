@@ -50,7 +50,7 @@ public class Main {
 
             switch (transactionOption) {
                 case 1:
-                    // Add Income
+                    // Add IncomeS
                     System.out.println("Add Income Transaction");
                     System.out.print("Enter amount:");
                     amount = scanner.nextDouble();
