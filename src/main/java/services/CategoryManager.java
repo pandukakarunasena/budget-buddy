@@ -45,10 +45,9 @@ public final class CategoryManager {
      * Add Category.
      *
      * @param categoryName   Category Name
-     * @param transactionType Transaction Type
      */
-    public void addCategory(String categoryName, TransactionType transactionType) {
-        Category category = new Category(lastCategoryId++, categoryName, transactionType);
+    public void addCategory(String categoryName) {
+        Category category = new Category(++lastCategoryId, categoryName);
         categoryList.add(category);
     }
 
@@ -64,7 +63,15 @@ public final class CategoryManager {
                 return category;
             }
         }
-        throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND + categoryId);
+        //throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND + categoryId);
+        return null;
+    }
+
+    public boolean isCategoryExisting(int categoryId) {
+        if (this.getCategory(categoryId) != null) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -76,20 +83,11 @@ public final class CategoryManager {
         return categoryList;
     }
 
-    /**
-     * Get Category List from Transaction Type.
-     *
-     * @param transactionType Transaction Type
-     * @return Category List
-     */
-    public List<Category> getCategoryList(TransactionType transactionType) {
-        List<Category> filteredCategoryList = new ArrayList<>();
-        for (Category category : categoryList) {
-            if (category.getTransactionType() == transactionType) {
-                filteredCategoryList.add(category);
-            }
+    public boolean isCategoryEmpty() {
+        if (categoryList != null && !categoryList.isEmpty()) {
+            return false;
         }
-        return filteredCategoryList;
+        return true;
     }
 
     /**
@@ -97,12 +95,10 @@ public final class CategoryManager {
      *
      * @param categoryId     Category ID
      * @param categoryName   Category Name
-     * @param transactionType Transaction Type
      */
-    public void editCategory(int categoryId, String categoryName, TransactionType transactionType) {
+    public void editCategory(int categoryId, String categoryName) {
         Category category = getCategory(categoryId);
         category.setCategoryName(categoryName);
-        category.setTransactionType(transactionType);
     }
 
     /**

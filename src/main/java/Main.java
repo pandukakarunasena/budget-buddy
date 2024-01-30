@@ -1,11 +1,14 @@
 import constants.Constants;
 import constants.TransactionType;
+import model.Category;
+import model.Transaction;
 import services.BudgetManager;
 import services.CategoryManager;
 import services.TransactionManager;
 import util.Util;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -18,19 +21,153 @@ public class Main {
 
             switch (option) {
                 case 1:
-                    transactionMenu();
-                    break;
-                case 2:
                     categoryMenu();
                     break;
-                case 3:
+                case 2:
                     budgetMenu();
+                    break;
+                case 3:
+                    transactionMenu();
                     break;
                 case 4:
                     System.exit(0);
                 default:
                     System.out.println(Constants.INVALID_OPTION);
             }
+        }
+    }
+
+    private static void categoryMenu() {
+
+        while (true) {
+            System.out.print(Constants.CATEGORY_MENU);
+            int categoryOption = scanner.nextInt();
+
+            switch (categoryOption) {
+                case 1:
+                    // Add Category
+                    addCategory();
+                    break;
+                case 2:
+                    // Edit Category
+                    editCategory();
+                    break;
+                case 3:
+                    // Remove Category
+                    removeCategory();
+                    break;
+                case 4:
+                    // View Categories
+                    viewCategories();
+                    break;
+                case 5:
+                    // Back
+                    return;
+                default:
+                    System.out.println(Constants.INVALID_OPTION);
+            }
+        }
+    }
+
+    private static void addCategory() {
+        CategoryManager categoryManager = CategoryManager.getInstance();
+
+        try {
+            System.out.println("Add Category");
+            System.out.print("Enter category name:");
+            String categoryName = scanner.next();
+
+            categoryManager.addCategory(categoryName);
+            System.out.println("Successfully added the category");
+        } catch (Exception e) {
+            System.out.println("Error adding category: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    private static void editCategory() {
+        CategoryManager categoryManager = CategoryManager.getInstance();
+        String categoryName;
+        int categoryId = 0;
+        List<Category> categoryList = null;
+        boolean isCategoryExist = false;
+
+        try {
+            System.out.println("Edit Category");
+
+            categoryList = categoryManager.getCategoryList();
+            if (categoryList != null && !categoryList.isEmpty()) {
+                do {
+                    Util.printList(categoryList);
+                    categoryId = getIntInput("Enter category ID:");
+                    isCategoryExist = categoryManager.isCategoryExisting(categoryId);
+                    if (!isCategoryExist) {
+                        System.out.println("Category with the given id does not exist");
+                    } else {
+                        System.out.print("Enter category name:");
+                        categoryName = scanner.next();
+                        categoryManager.editCategory(categoryId, categoryName);
+                        System.out.println("Successfully updated the category");
+                    }
+                } while (!isCategoryExist);
+            } else {
+                System.out.println("No category available. Please add a category before continuing");
+            }
+        } catch (Exception e) {
+            System.out.println("Error editing category: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void removeCategory() {
+        CategoryManager categoryManager = CategoryManager.getInstance();
+        TransactionManager transactionManager = TransactionManager.getInstance();
+        int categoryId = 0;
+        List<Category> categoryList = null;
+        boolean isCategoryExist = false;
+
+        try {
+            System.out.println("Remove Category");
+            categoryList = categoryManager.getCategoryList();
+            if (categoryList != null && !categoryList.isEmpty()) {
+                do {
+                    Util.printList(categoryList);
+                    categoryId = getIntInput("Enter category ID:");
+                    isCategoryExist = categoryManager.isCategoryExisting(categoryId);
+                    if (!isCategoryExist) {
+                        System.out.println("Category with the given id does not exist");
+                    } else {
+                        System.out.println("Removing all transactions under the category");
+                        transactionManager.removeAllTransactionsWithCategoryId(categoryId);
+                        System.out.println("Successfully removed the all transactions related to the category");
+                        categoryManager.removeCategory(categoryId);
+                        System.out.println("Successfully removed the category");
+                    }
+                } while (!isCategoryExist);
+            } else {
+                System.out.println("No category available. Please add a category before continuing");
+            }
+        } catch (Exception e) {
+            System.out.println("Error removing category: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void viewCategories() {
+        CategoryManager categoryManager = CategoryManager.getInstance();
+        List<Category> categoryList = null;
+
+        try {
+            System.out.println("View Categories");
+            categoryList = categoryManager.getCategoryList();
+            if (categoryList != null && !categoryList.isEmpty()) {
+                Util.printList(categoryList);
+            } else {
+                System.out.println("No category available. Please add a category before continuing");
+            }
+        } catch (Exception e) {
+            System.out.println("Error viewing categories: " + e.getMessage());
+            scanner.nextLine();
         }
     }
 
@@ -50,109 +187,20 @@ public class Main {
 
             switch (transactionOption) {
                 case 1:
-                    // Add IncomeS
-                    System.out.println("Add Income Transaction");
-                    System.out.print("Enter amount:");
-                    amount = scanner.nextDouble();
-                    System.out.print("Enter category ID:"); //TODO : Show list of income categories
-                    categoryId = scanner.nextInt();
-                    System.out.print("Enter note:");
-                    note = scanner.next();
-                    date = new Date();
-                    transactionManager.addTransaction(amount, TransactionType.Income, categoryId, note, date);
+                    // Add Income
+                    addTransaction();
                     break;
                 case 2:
-                    // Add Expense
-                    System.out.println("Add Expense Transaction");
-                    System.out.print("Enter amount:");
-                    amount = scanner.nextDouble();
-                    System.out.print("Enter category ID:"); // TODO : Show list of expense categories
-                    categoryId = scanner.nextInt();
-                    System.out.print("Enter note:");
-                    note = scanner.next();
-                    date = new Date();
-                    transactionManager.addTransaction(amount, TransactionType.Expense, categoryId, note, date);
-                    break;
-                case 3:
                     // Edit Transaction
-                    System.out.println("Edit Transaction");
-                    System.out.print("Enter transaction ID:");
-                    transactionId = scanner.nextInt();
-                    System.out.print("Enter amount:");
-                    amount = scanner.nextDouble();
-                    System.out.print("Enter transaction type (1: Income, 2: Expense):");
-                    transactionType = scanner.nextInt() == 1 ? TransactionType.Income : TransactionType.Expense;
-                    System.out.print("Enter category ID:"); // TODO : Show list of selected transaction type categories
-                    categoryId = scanner.nextInt();
-                    System.out.print("Enter note:");
-                    note = scanner.next();
-                    date = new Date();
-                    transactionManager.editTransaction(transactionId, amount, transactionType, categoryId, note, date);
-                    break;
-                case 4:
-                    // Remove Transaction
-                    System.out.println("Remove Transaction");
-                    System.out.print("Enter transaction ID:");
-                    transactionId = scanner.nextInt();
-                    transactionManager.removeTransaction(transactionId);
-                    break;
-                case 5:
-                    // View Transactions
-                    System.out.println("View Transactions");
-                    Util.printList(transactionManager.getTransactionList());
-                    break;
-                case 6:
-                    // Back
-                    return;
-                default:
-                    System.out.println(Constants.INVALID_OPTION);
-            }
-        }
-    }
-
-    private static void categoryMenu() {
-        CategoryManager categoryManager = CategoryManager.getInstance();
-
-        String categoryName;
-        int categoryId;
-        TransactionType transactionType;
-
-        while (true) {
-            System.out.print(Constants.CATEGORY_MENU);
-            int categoryOption = scanner.nextInt();
-
-            switch (categoryOption) {
-                case 1:
-                    // Add Category
-                    System.out.println("Add Category");
-                    System.out.print("Enter category name:");
-                    categoryName = scanner.next();
-                    System.out.print("Enter transaction type (1: Income, 2: Expense):");
-                    transactionType = scanner.nextInt() == 1 ? TransactionType.Income : TransactionType.Expense;
-                    categoryManager.addCategory(categoryName, transactionType);
-                    break;
-                case 2:
-                    // Edit Category
-                    System.out.println("Edit Category");
-                    System.out.print("Enter category ID:");
-                    categoryId = scanner.nextInt();
-                    System.out.print("Enter category name:");
-                    categoryName = scanner.next();
-                    System.out.print("Enter transaction type (1: Income, 2: Expense):");
-                    transactionType = scanner.nextInt() == 1 ? TransactionType.Income : TransactionType.Expense;
-                    categoryManager.editCategory(categoryId, categoryName, transactionType);
+                    editTransaction();
                     break;
                 case 3:
-                    // Remove Category
-                    System.out.println("Remove Category");
-                    System.out.print("Enter category ID:");
-                    categoryId = scanner.nextInt();
-                    categoryManager.removeCategory(categoryId);
+                    // Remove Transaction
+                    removeTransaction();
                     break;
                 case 4:
-                    // View Categories
-                    System.out.println("View Categories");
-                    Util.printList(categoryManager.getCategoryList());
+                    // View Transactions
+                    viewTransactions();
                     break;
                 case 5:
                     // Back
@@ -162,6 +210,187 @@ public class Main {
             }
         }
     }
+
+    private static void addTransaction() {
+        double amount;
+        List<Category> categoryList = null;
+        boolean isCategoryExist = false;
+        int categoryId = 0;
+        String note;
+        Date date;
+        TransactionManager transactionManager = TransactionManager.getInstance();
+        CategoryManager categoryManager = CategoryManager.getInstance();
+        int transactionTypeIn = 0;
+        TransactionType transactionType = null;
+
+        try {
+            System.out.println("Add Transaction");
+
+            categoryList = categoryManager.getCategoryList();
+            if (categoryList != null && !categoryList.isEmpty()) {
+                transactionTypeIn = getIntInput("Enter transaction type (1: Income, 2 or any other number: Expense):");
+                transactionType = transactionTypeIn == 1 ? TransactionType.Income : TransactionType.Expense;
+                amount = getDoubleInput("Enter amount:");
+
+                Util.printList(categoryManager.getCategoryList());
+                categoryId = getIntInput("Enter category ID:");
+                isCategoryExist = categoryManager.isCategoryExisting(categoryId);
+                if (!isCategoryExist) {
+                    System.out.println("Category with the given id does not exist");
+                } else {
+                    System.out.print("Enter note:");
+                    note = scanner.next();
+
+                    date = new Date();
+                    transactionManager.addTransaction(amount, transactionType, categoryId, note, date);
+                    System.out.println("Successfully added the transaction");
+                }
+            } else {
+                System.out.println("No category available. Please add a category before continuing");
+            }
+        } catch (Exception e) {
+            System.out.println("Error adding income: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    private static void editTransaction() {
+        int transactionId;
+        double amount;
+        int transactionTypeIn;
+        TransactionType transactionType;
+        int categoryId;
+        String note;
+        Date date;
+        TransactionManager transactionManager = TransactionManager.getInstance();
+        List<Transaction> transactionList = null;
+        boolean isTransactionExist = false;
+        List<Category> categoryList = null;
+        CategoryManager categoryManager = CategoryManager.getInstance();
+        boolean isCategoryExist = false;
+
+        try {
+            System.out.println("Edit Transaction");
+            transactionList = transactionManager.getTransactionList();
+            if (transactionList != null && !transactionList.isEmpty()) {
+                Util.printList(transactionList);
+                transactionId = getIntInput("Enter transaction ID:");
+                isTransactionExist = transactionManager.isTransactionExisting(transactionId);
+                if (!isTransactionExist) {
+                    System.out.println("Transaction with the given id does not exist");
+                } else {
+                    categoryList = categoryManager.getCategoryList();
+                    if (categoryList != null && !categoryList.isEmpty()) {
+                        transactionTypeIn = getIntInput("Enter transaction type (1: Income, 2 or any other number: Expense):");
+                        transactionType = transactionTypeIn == 1 ? TransactionType.Income : TransactionType.Expense;
+                        amount = getDoubleInput("Enter amount:");
+
+                        Util.printList(categoryManager.getCategoryList());
+                        categoryId = getIntInput("Enter category ID:");
+                        isCategoryExist = categoryManager.isCategoryExisting(categoryId);
+                        if (!isCategoryExist) {
+                            System.out.println("Category with the given id does not exist");
+                        } else {
+                            System.out.print("Enter note:");
+                            note = scanner.next();
+
+                            date = new Date();
+                            transactionManager.editTransaction(transactionId, amount, transactionType, categoryId, note, date);
+                            System.out.println("Successfully updated the transaction");
+                        }
+                    } else {
+                        System.out.println("No category available. Please add a category before continuing");
+                    }
+                }
+            } else {
+                System.out.println("No transaction available. Please add a transaction before attempting to update one");
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating transaction: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    private static void removeTransaction() {
+        int transactionId;
+        TransactionManager transactionManager = TransactionManager.getInstance();
+        List<Transaction> transactionList = null;
+        boolean isTransactionExist = false;
+
+        try {
+            System.out.println("Remove Transaction");
+            transactionList = transactionManager.getTransactionList();
+            if (transactionList != null && !transactionList.isEmpty()) {
+                Util.printList(transactionList);
+                transactionId = getIntInput("Enter transaction ID:");
+                isTransactionExist = transactionManager.isTransactionExisting(transactionId);
+                if (!isTransactionExist) {
+                    System.out.println("Transaction with the given id does not exist");
+                } else {
+                    transactionManager.removeTransaction(transactionId);
+                    System.out.println("Successfully removed the transaction");
+                }
+            } else {
+                System.out.println("No transaction available. Please add a transaction before attempting to delete one");
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating transaction: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void viewTransactions() {
+        TransactionManager transactionManager = TransactionManager.getInstance();
+        List<Transaction> transactionList = null;
+
+        try {
+            System.out.println("View Transactions");
+            transactionList = transactionManager.getTransactionList();
+            if (transactionList != null && !transactionList.isEmpty()) {
+                Util.printList(transactionList);
+            } else {
+                System.out.println("No transaction available. Please add a transaction before continuing");
+            }
+        } catch (Exception e) {
+            System.out.println("Error viewing transactions: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static double getDoubleInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return scanner.nextDouble();
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next();
+            }
+        }
+    }
+
+    public static int getIntInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.next();
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     private static void budgetMenu() {
         BudgetManager budgetManager = BudgetManager.getInstance();

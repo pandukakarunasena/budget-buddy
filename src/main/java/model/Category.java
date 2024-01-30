@@ -12,20 +12,15 @@ public class Category {
     /** Category Name. */
     private String categoryName;
 
-    /** Transaction Type. */
-    private TransactionType transactionType;
-
     /**
      * Constructor for Category.
      *
      * @param categoryId     Category ID
      * @param categoryName   Category Name
-     * @param transactionType Transaction Type
      */
-    public Category(int categoryId, String categoryName, TransactionType transactionType) {
+    public Category(int categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
-        this.transactionType = transactionType;
     }
 
     /**
@@ -47,15 +42,6 @@ public class Category {
     }
 
     /**
-     * Get Transaction Type.
-     *
-     * @return Transaction Type
-     */
-    public TransactionType getTransactionType() {
-        return transactionType;
-    }
-
-    /**
      * Set Category Name.
      *
      * @param categoryName Category Name
@@ -65,22 +51,13 @@ public class Category {
     }
 
     /**
-     * Set Transaction Type.
-     *
-     * @param transactionType Transaction Type
-     */
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
-    }
-
-    /**
      * Override toString() method.
      *
      * @return String
      */
     @Override
     public String toString() {
-        return categoryId + "\t\t" + categoryName + "\t\t" + transactionType;
+        return categoryId + "\t\t" + categoryName;
     }
 }
 

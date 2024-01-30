@@ -51,7 +51,7 @@ public final class TransactionManager {
      * @param date            Date
      */
     public void addTransaction(double amount, TransactionType transactionType, int categoryId, String note, Date date) {
-        Transaction transaction = new Transaction(lastTransactionId++, amount, transactionType, categoryId, note, date);
+        Transaction transaction = new Transaction(++lastTransactionId, amount, transactionType, categoryId, note, date);
         transactionList.add(transaction);
     }
 
@@ -67,7 +67,15 @@ public final class TransactionManager {
                 return transaction;
             }
         }
-        throw new IllegalArgumentException(Constants.ERROR_MESSAGE_TRANSACTION_NOT_FOUND + transactionId);
+        //throw new IllegalArgumentException(Constants.ERROR_MESSAGE_TRANSACTION_NOT_FOUND + transactionId);
+        return null;
+    }
+
+    public boolean isTransactionExisting(int transactionId) {
+        if (this.getTransaction(transactionId) != null) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -106,6 +114,10 @@ public final class TransactionManager {
      */
     public void removeTransaction(int transactionId) {
         transactionList.remove(getTransaction(transactionId));
+    }
+
+    public void removeAllTransactionsWithCategoryId(int categoryId) {
+        transactionList.removeIf(transaction -> transaction.getCategoryId() == categoryId);
     }
 }
 
