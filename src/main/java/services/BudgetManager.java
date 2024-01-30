@@ -15,27 +15,14 @@ public final class BudgetManager {
     /** Budget List. */
     private final List<Budget> budgetList;
 
-    /** BudgetManager instance. */
-    private static BudgetManager instance;
-
     /**
      * Constructor for BudgetManager.
      */
-    private BudgetManager() {
+    public BudgetManager() {
+
         this.budgetList = new ArrayList<>();
     }
 
-    /**
-     * Get BudgetManager instance.
-     *
-     * @return BudgetManager instance
-     */
-    public static BudgetManager getInstance() {
-        if (instance == null) {
-            instance = new BudgetManager();
-        }
-        return instance;
-    }
 
     /**
      * Add Budget.

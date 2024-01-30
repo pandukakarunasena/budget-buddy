@@ -35,7 +35,7 @@ public class Main {
     }
 
     private static void transactionMenu() {
-        TransactionManager transactionManager = TransactionManager.getInstance();
+        TransactionManager transactionManager = new TransactionManager();
 
         int transactionId;
         double amount;
@@ -111,7 +111,7 @@ public class Main {
     }
 
     private static void categoryMenu() {
-        CategoryManager categoryManager = CategoryManager.getInstance();
+        CategoryManager categoryManager = new CategoryManager();
 
         String categoryName;
         int categoryId;
@@ -164,7 +164,7 @@ public class Main {
     }
 
     private static void budgetMenu() {
-        BudgetManager budgetManager = BudgetManager.getInstance();
+        BudgetManager budgetManager = new BudgetManager();
 
         int categoryId;
         double budgetAmount;

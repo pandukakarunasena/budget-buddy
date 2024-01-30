@@ -10,7 +10,6 @@ import model.Category;
 import java.util.ArrayList;
 import java.util.List;
 
-// Singleton class
 public final class CategoryManager {
     /** Category List. */
     private final List<Category> categoryList;
@@ -18,27 +17,13 @@ public final class CategoryManager {
     /** Last Category ID. Used to calculate the new category ID when adding a new category. */
     private int lastCategoryId;
 
-    /** CategoryManager instance. */
-    private static CategoryManager instance;
-
     /**
      * Constructor for CategoryManager.
      */
-    private CategoryManager() {
+    public CategoryManager() {
+
         this.categoryList = new ArrayList<>();
         this.lastCategoryId = 0;
-    }
-
-    /**
-     * Get CategoryManager instance.
-     *
-     * @return CategoryManager instance
-     */
-    public static CategoryManager getInstance() {
-        if (instance == null) {
-            instance = new CategoryManager();
-        }
-        return instance;
     }
 
     /**
