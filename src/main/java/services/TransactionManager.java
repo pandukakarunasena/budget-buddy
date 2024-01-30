@@ -13,32 +13,17 @@ import java.util.List;
 
 public final class TransactionManager {
     /** Transaction List. */
-    private final List<Transaction> transactionList;
+    private  List<Transaction> transactionList;
 
     /** Last Transaction ID. Used to calculate the new transaction ID when adding a new transaction. */
     private int lastTransactionId;
 
-    /** TransactionManager instance. */
-    private static TransactionManager instance;
-
     /**
      * Constructor for TransactionManager.
      */
-    private TransactionManager() {
+    public TransactionManager() {
         this.transactionList = new ArrayList<>();
         this.lastTransactionId = 0;
-    }
-
-    /**
-     * Get TransactionManager instance.
-     *
-     * @return TransactionManager instance
-     */
-    public static TransactionManager getInstance() {
-        if (instance == null) {
-            instance = new TransactionManager();
-        }
-        return instance;
     }
 
     /**
