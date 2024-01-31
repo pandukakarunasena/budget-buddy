@@ -138,7 +138,7 @@ public class TransactionManager {
             Transaction transaction = new Transaction(newTransactionId, amount, transactionType, categoryId, note, new Date());
             transactionDbService.addSingleTransaction(transaction);
         } else {
-            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID);
+            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID + categoryId);
         }
     }
 
@@ -162,7 +162,7 @@ public class TransactionManager {
                 throw new IllegalArgumentException(Constants.ERROR_MESSAGE_EMPTY_TRANSACTION);
             }
         } else {
-            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID);
+            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID + categoryId);
         }
     }
 
@@ -195,7 +195,7 @@ public class TransactionManager {
                 transactionsList = transactionDbService.getTransactionsByType(TransactionType.Expense);
             }
         } else {
-            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_PRINTABLE_CATEGORY_LIST_DOES_NOT_EXIST);
+            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_PRINTABLE_TRANSACTION_LIST_DOES_NOT_EXIST);
         }
 
         if (transactionsList != null && !transactionsList.isEmpty()) {

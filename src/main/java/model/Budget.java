@@ -3,57 +3,56 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import constants.Month;
+
 public class Budget {
-
-    /** Category ID. */
-    private final int categoryId;
-
-    /** Budget Amount. */
+    private final int budgetId;
+    private int categoryId;
+    private Month month;
     private double budgetAmount;
 
-    /**
-     * Constructor for Budget.
-     *
-     * @param categoryId   Category ID
-     * @param budgetAmount Budget Amount
-     */
-    public Budget(int categoryId, double budgetAmount) {
+    @JsonCreator
+    public Budget(
+            @JsonProperty("budgetId") int budgetId,
+            @JsonProperty("categoryId") int categoryId,
+            @JsonProperty("month") Month month,
+            @JsonProperty("budgetAmount") double budgetAmount) {
+        this.budgetId = budgetId;
         this.categoryId = categoryId;
+        this.month = month;
         this.budgetAmount = budgetAmount;
     }
 
-    /**
-     * Get Category ID.
-     *
-     * @return Category ID
-     */
+    public int getBudgetId() {
+        return budgetId;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }
 
-    /**
-     * Get Budget Amount.
-     *
-     * @return Budget Amount
-     */
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Month getMonth() {
+        return month;
+    }
+
+    public void setMonth(Month month) {
+        this.month = month;
+    }
+
     public double getBudgetAmount() {
         return budgetAmount;
     }
 
-    /**
-     * Set Budget Amount.
-     *
-     * @param budgetAmount Budget Amount
-     */
     public void setBudgetAmount(double budgetAmount) {
         this.budgetAmount = budgetAmount;
     }
 
-    /**
-     * Override toString() method.
-     *
-     * @return String
-     */
     @Override
     public String toString() {
         return categoryId + "\t\t" + budgetAmount;
