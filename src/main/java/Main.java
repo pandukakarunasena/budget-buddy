@@ -374,7 +374,7 @@ public class Main {
 
 
     private static void budgetMenu() {
-        BudgetManager budgetManager = BudgetManager.getInstance();
+        BudgetManager budgetManager = new BudgetManager();
 
         int categoryId;
         double budgetAmount;
