@@ -4,11 +4,14 @@
 package controllers;
 
 import constants.Constants;
+import constants.Month;
 import constants.TransactionType;
 import model.Transaction;
 import services.TransactionDbService;
 import services.TransactionDbServiceImpl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -140,14 +143,50 @@ public class TransactionManagerImpl implements TransactionManager {
         }
     }
 
+    private int getTransactionMonth(Transaction transaction) {
+        LocalDate localDate = transaction.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return localDate.getMonthValue();
+    }
+
+    public double getTotalAmountForCategoryInCurrentMonth(int categoryId) {
+        List<Transaction> transactionList = getTransactionsByCategoryId(categoryId);
+
+        int currentMonth = LocalDate.now().getMonthValue();
+
+        double totalAmount = transactionList.stream()
+                .filter(transaction -> getTransactionMonth(transaction) == currentMonth
+                && transaction.getTransactionType() == TransactionType.Expense)
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+
+        return totalAmount;
+    }
+
     @Override
     public void addTransaction(double amount, TransactionType transactionType, int categoryId, String note) {
-
         CategoryManager categoryManager = new CategoryManagerImpl();
+        BudgetManager budgetManager = new BudgetManagerImpl();
+
         if (categoryManager.isCategoryExistingById(categoryId)) {
-            int newTransactionId = lastTransactionId.incrementAndGet();
-            Transaction transaction = new Transaction(newTransactionId, amount, transactionType, categoryId, note, new Date());
-            transactionDbService.addSingleTransaction(transaction);
+            int currentMonth = LocalDate.now().getMonthValue();
+            Month[] months = Month.values();
+            Month currentMonthEnum = months[currentMonth - 1];
+
+            double currentTotal = getTotalAmountForCategoryInCurrentMonth(categoryId);
+            double total;
+            if (transactionType == TransactionType.Expense) {
+                total = currentTotal + amount;
+            } else {
+                total = currentTotal;
+            }
+            boolean exceedBudget = budgetManager.doesExpensesExceedBudget(categoryId, currentMonthEnum, total);
+            if (!exceedBudget) {
+                int newTransactionId = lastTransactionId.incrementAndGet();
+                Transaction transaction = new Transaction(newTransactionId, amount, transactionType, categoryId, note, new Date());
+                transactionDbService.addSingleTransaction(transaction);
+            } else {
+                throw new IllegalArgumentException(Constants.ERROR_MESSAGE_TRANSACTIONS_EXCEED_BUDGET);
+            }
         } else {
             throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID + categoryId);
         }

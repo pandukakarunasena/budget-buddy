@@ -29,6 +29,8 @@ public interface TransactionManager {
 
     boolean isTransactionsExistingByType(TransactionType transactionType);
 
+    double getTotalAmountForCategoryInCurrentMonth(int categoryId);
+
     void addTransaction(double amount, TransactionType transactionType, int categoryId, String note);
 
     void updateTransaction(int transactionId, double amount, TransactionType transactionType, int categoryId, String note);

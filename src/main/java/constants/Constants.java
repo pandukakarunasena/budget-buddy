@@ -27,6 +27,7 @@ public class Constants {
     public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_NOTE = "No transaction exists for the note: ";
     public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_DATE = "No transaction exists for the date: ";
     public static final String ERROR_MESSAGE_PRINTABLE_TRANSACTION_LIST_DOES_NOT_EXIST = "No printable transaction list";
+    public static final String ERROR_MESSAGE_TRANSACTIONS_EXCEED_BUDGET = "Cannot add current transaction as the monthly budget would be exceeded";
 
     public static final String ERROR_MESSAGE_EMPTY_BUDGET = "Budget list empty";
     public static final String ERROR_MESSAGE_BUDGETS_NOT_FOUND_BY_CATEGORY_ID = "No budget exists for the category id: ";
@@ -35,6 +36,7 @@ public class Constants {
     public static final String ERROR_MESSAGE_BUDGET_NOT_FOUND_BY_ID = "Budget not found for transaction ID: ";
     public static final String ERROR_MESSAGE_PRINTABLE_BUDGET_LIST_DOES_NOT_EXIST = "No printable budget list";
     public static final String ERROR_MESSAGE_BUDGET_ALREADY_EXIST = "A budget already exists for category ID and month";
+    public static final String ERROR_MESSAGE_BUDGET_NO_EXIST = "A budget does not exist for category ID and month";
 
     public static final String TITLE_DASHES = "----------------";
 
