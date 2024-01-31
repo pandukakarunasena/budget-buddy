@@ -1,12 +1,10 @@
 import constants.Constants;
 import constants.Month;
 import constants.TransactionType;
+import controllers.*;
 import model.Budget;
 import model.Category;
 import model.Transaction;
-import controllers.BudgetManager;
-import controllers.CategoryManager;
-import controllers.TransactionManager;
 
 import java.util.List;
 import java.util.Scanner;
@@ -72,7 +70,7 @@ public class Main {
     }
 
     private static void viewCategories() {
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_VIEW_CATEGORIES);
@@ -85,7 +83,7 @@ public class Main {
     }
 
     private static void findCategory() {
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_FIND_CATEGORY);
@@ -101,7 +99,7 @@ public class Main {
     }
 
     private static void addCategory() {
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_ADD_CATEGORY);
@@ -117,7 +115,7 @@ public class Main {
     }
 
     private static void updateCategory() {
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
         String categoryName;
         int categoryId = 0;
         List<Category> categoryList = null;
@@ -139,8 +137,8 @@ public class Main {
     }
 
     private static void removeCategory() {
-        CategoryManager categoryManager = new CategoryManager();
-        TransactionManager transactionManager = new TransactionManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
+        TransactionManager transactionManager = new TransactionManagerImpl();
         int categoryId = 0;
         List<Category> categoryList = null;
         boolean isCategoryExist = false;
@@ -205,7 +203,7 @@ public class Main {
     }
 
     public static void viewAllTransactions() {
-        TransactionManager transactionManager = new TransactionManager();
+        TransactionManager transactionManager = new TransactionManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_VIEW_TRANSACTIONS);
@@ -218,8 +216,8 @@ public class Main {
     }
 
     public static void viewTransactionsByCategory() {
-        CategoryManager categoryManager = new CategoryManager();
-        TransactionManager transactionManager = new TransactionManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
+        TransactionManager transactionManager = new TransactionManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_VIEW_CATEGORY_SPECIFIC_TRANSACTIONS);
@@ -240,8 +238,7 @@ public class Main {
     }
 
     public static void viewTransactionsByTransactionType() {
-        CategoryManager categoryManager = new CategoryManager();
-        TransactionManager transactionManager = new TransactionManager();
+        TransactionManager transactionManager = new TransactionManagerImpl();
         int transactionTypeIn = 0;
         TransactionType transactionType = null;
 
@@ -264,13 +261,13 @@ public class Main {
     }
 
     private static void addTransaction() {
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
         int categoryId = 0;
         int transactionTypeIn = 0;
         TransactionType transactionType = null;
         double amount = 0;
         String note = null;
-        TransactionManager transactionManager = new TransactionManager();
+        TransactionManager transactionManager = new TransactionManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_ADD_TRANSACTION);
@@ -292,9 +289,9 @@ public class Main {
     }
 
     private static void updateTransaction() {
-        TransactionManager transactionManager = new TransactionManager();
+        TransactionManager transactionManager = new TransactionManagerImpl();
         int transactionId = 0;
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
         int categoryId = 0;
         int transactionTypeIn = 0;
         TransactionType transactionType = null;
@@ -305,7 +302,7 @@ public class Main {
             System.out.println(Constants.TITLE_UPDATE_TRANSACTION);
             transactionManager.isTransactionNotEmpty();
             System.out.println(transactionManager.getPrintableTransactionList("all", 0));
-            transactionId = getIntInput("Enter transaction ID:");
+            transactionId = getIntInput("Enter transaction ID: ");
             System.out.println(categoryManager.getPrintableCategoryList("all"));
             categoryId = getIntInput("Enter category ID: ");
             transactionTypeIn = getIntInput("Enter transaction type (1: Income, Any other number: Expense): ");
@@ -323,13 +320,13 @@ public class Main {
     }
 
     private static void removeTransaction() {
-        TransactionManager transactionManager = new TransactionManager();
+        TransactionManager transactionManager = new TransactionManagerImpl();
         int transactionId = 0;
         try {
             System.out.println(Constants.TITLE_REMOVE_TRANSACTION);
             transactionManager.isTransactionNotEmpty();
             System.out.println(transactionManager.getPrintableTransactionList("all", 0));
-            transactionId = getIntInput("Enter transaction ID:");
+            transactionId = getIntInput("Enter transaction ID: ");
 
             transactionManager.removeTransactionByTransactionId(transactionId);
             System.out.println("Transactions removed successfully");
@@ -380,7 +377,7 @@ public class Main {
     }
 
     public static void viewAllBudgets() {
-        BudgetManager budgetManager = new BudgetManager();
+        BudgetManager budgetManager = new BudgetManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_VIEW_BUDGETS);
@@ -393,8 +390,8 @@ public class Main {
     }
 
     public static void viewBudgetsByCategory() {
-        CategoryManager categoryManager = new CategoryManager();
-        BudgetManager budgetManager = new BudgetManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
+        BudgetManager budgetManager = new BudgetManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_VIEW_CATEGORY_SPECIFIC_BUDGETS);
@@ -415,8 +412,8 @@ public class Main {
     }
 
     public static void viewBudgetsByMonth() {
-        CategoryManager categoryManager = new CategoryManager();
-        BudgetManager budgetManager = new BudgetManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
+        BudgetManager budgetManager = new BudgetManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_VIEW_MONTH_SPECIFIC_BUDGETS);
@@ -442,9 +439,9 @@ public class Main {
     }
 
     public static void specifyBudgetByCategory() {
-        CategoryManager categoryManager = new CategoryManager();
+        CategoryManager categoryManager = new CategoryManagerImpl();
         int categoryId = 0;
-        BudgetManager budgetManager = new BudgetManager();
+        BudgetManager budgetManager = new BudgetManagerImpl();
         double amount = 0;
 
         try {
@@ -469,8 +466,8 @@ public class Main {
     }
 
     public static void updateBudget() {
-        BudgetManager budgetManager = new BudgetManager();
-        CategoryManager categoryManager = new CategoryManager();
+        BudgetManager budgetManager = new BudgetManagerImpl();
+        CategoryManager categoryManager = new CategoryManagerImpl();
         int categoryId = 0;
         int budgetId = 0;
         double amount = 0;
@@ -499,7 +496,7 @@ public class Main {
     }
 
     public static void removeBudgetById() {
-        BudgetManager budgetManager = new BudgetManager();
+        BudgetManager budgetManager = new BudgetManagerImpl();
         int budgetId = 0;
 
         try {
