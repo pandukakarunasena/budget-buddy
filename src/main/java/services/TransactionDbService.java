@@ -42,7 +42,7 @@ public class TransactionDbService {
         }
     }
 
-    public TransactionDbService() {
+    private TransactionDbService() {
         initializeDataFile();
         this.objectMapper = new ObjectMapper();
     }
@@ -146,4 +146,8 @@ public class TransactionDbService {
         addAllTransactions(transactions);
     }
 
+    public synchronized void removeAllTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+        addAllTransactions(transactions);
+    }
 }

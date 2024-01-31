@@ -1,5 +1,7 @@
 import constants.Constants;
+import constants.Month;
 import constants.TransactionType;
+import model.Budget;
 import model.Category;
 import model.Transaction;
 import controllers.BudgetManager;
@@ -338,6 +340,183 @@ public class Main {
         }
     }
 
+    private static void budgetMenu() {
+
+        while (true) {
+            System.out.print(Constants.BUDGET_MENU);
+            int budgetOption = scanner.nextInt();
+
+            switch (budgetOption) {
+                case 1:
+                    // View all budgets
+                    viewAllBudgets();
+                    break;
+                case 2:
+                    // View budgets by category
+                    viewBudgetsByCategory();
+                    break;
+                case 3:
+                    // View budgets by Month
+                    viewBudgetsByMonth();
+                    break;
+                case 4:
+                    // Add budget
+                    specifyBudgetByCategory();
+                    break;
+                case 5:
+                    // Update budget on a category
+                    updateBudget();
+                    break;
+                case 6:
+                    // Delete budget
+                    removeBudgetById();
+                    break;
+                case 7:
+                    // Back
+                    return;
+                default:
+                    System.out.println(Constants.INVALID_OPTION);
+            }
+        }
+    }
+
+    public static void viewAllBudgets() {
+        BudgetManager budgetManager = new BudgetManager();
+
+        try {
+            System.out.println(Constants.TITLE_VIEW_BUDGETS);
+            budgetManager.isBudgetNotEmpty();
+            System.out.println(budgetManager.getPrintableBudgetList("all", 0, null));
+        } catch (Exception e) {
+            System.out.println("Error viewing budgets: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void viewBudgetsByCategory() {
+        CategoryManager categoryManager = new CategoryManager();
+        BudgetManager budgetManager = new BudgetManager();
+
+        try {
+            System.out.println(Constants.TITLE_VIEW_CATEGORY_SPECIFIC_BUDGETS);
+            System.out.println(categoryManager.getPrintableCategoryList("all"));
+            int categoryId = getIntInput("Enter category id to filter budgets by: ");
+            if (budgetManager.doBudgetsExistByCategoryId(categoryId))
+            {
+                System.out.println(budgetManager.getPrintableBudgetList("filter-category", categoryId, null));
+                // CHARTER TIKAK
+            } else {
+                List<Budget> budgets = budgetManager.getBudgetsByCategoryId(categoryId);
+                // CHARTER TIKAK
+            };
+        } catch (Exception e) {
+            System.out.println("Error viewing budgets by category: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void viewBudgetsByMonth() {
+        CategoryManager categoryManager = new CategoryManager();
+        BudgetManager budgetManager = new BudgetManager();
+
+        try {
+            System.out.println(Constants.TITLE_VIEW_MONTH_SPECIFIC_BUDGETS);
+            for (Month month : Month.values()) {
+                System.out.println(month);
+            }
+            System.out.println("Enter month to filter budgets by: ");
+            String monthIn = scanner.next();
+
+            Month selectedMonth = Month.valueOf(monthIn);
+            if (budgetManager.doBudgetsExistByMonth(selectedMonth))
+            {
+                System.out.println(budgetManager.getPrintableBudgetList("filter-month", -1, selectedMonth));
+                // CHARTER TIKAK
+            } else {
+                List<Budget> budgets = budgetManager.getBudgetsByMonth(selectedMonth);
+                // CHARTER TIKAK
+            };
+        } catch (Exception e) {
+            System.out.println("Error viewing budgets by month: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void specifyBudgetByCategory() {
+        CategoryManager categoryManager = new CategoryManager();
+        int categoryId = 0;
+        BudgetManager budgetManager = new BudgetManager();
+        double amount = 0;
+
+        try {
+            System.out.println(Constants.TITLE_SPECIFY_BUDGET_ON_CATEGORY);
+
+            System.out.println(categoryManager.getPrintableCategoryList("all"));
+            categoryId = getIntInput("Enter category ID: ");
+            for (Month month : Month.values()) {
+                System.out.println(month);
+            }
+            System.out.println("Enter month of the budget: ");
+            String monthIn = scanner.next();
+
+            Month selectedMonth = Month.valueOf(monthIn);
+            amount = getDoubleInput("Enter budget amount for the month of " + monthIn + " : ");
+            budgetManager.addBudget(categoryId, selectedMonth, amount);
+            System.out.println("Budget specified successfully");
+        } catch (Exception e) {
+            System.out.println("Error specifying budget by category: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void updateBudget() {
+        BudgetManager budgetManager = new BudgetManager();
+        CategoryManager categoryManager = new CategoryManager();
+        int categoryId = 0;
+        int budgetId = 0;
+        double amount = 0;
+
+        try {
+            System.out.println(Constants.TITLE_UPDATE_BUDGET_BY_CATEGORY);
+
+            budgetManager.isBudgetNotEmpty();
+            System.out.println(budgetManager.getPrintableBudgetList("all", 0, null));
+            budgetId = getIntInput("Select budget ID to update: ");
+            System.out.println(categoryManager.getPrintableCategoryList("all"));
+            categoryId = getIntInput("Enter category ID: ");
+            for (Month month : Month.values()) {
+                System.out.println(month);
+            }
+            System.out.println("Enter month of the budget: ");
+            String monthIn = scanner.next();
+            Month selectedMonth = Month.valueOf(monthIn);
+            amount = getDoubleInput("Enter budget amount for the month of " + monthIn + " : ");
+            budgetManager.updateBudget(budgetId, categoryId, selectedMonth, amount);
+            System.out.println("Budget updated successfully");
+        } catch (Exception e) {
+            System.out.println("Error updating budget: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    public static void removeBudgetById() {
+        BudgetManager budgetManager = new BudgetManager();
+        int budgetId = 0;
+
+        try {
+            System.out.println(Constants.TITLE_REMOVE_BUDGET_BY_ID);
+
+            budgetManager.isBudgetNotEmpty();
+            System.out.println(budgetManager.getPrintableBudgetList("all", 0, null));
+            budgetId = getIntInput("Select budget ID: ");
+            budgetManager.removeBudgetByBudgetId(budgetId);
+            System.out.println("Budget removed successfully");
+        } catch (Exception e) {
+            System.out.println("Error updating budget: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
     public static double getDoubleInput(String prompt) {
         while (true) {
             try {
@@ -358,67 +537,6 @@ public class Main {
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a valid integer.");
                 scanner.next();
-            }
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    private static void budgetMenu() {
-        BudgetManager budgetManager = BudgetManager.getInstance();
-
-        int categoryId;
-        double budgetAmount;
-
-        while (true) {
-            System.out.print(Constants.BUDGET_MENU);
-            int budgetOption = scanner.nextInt();
-
-            switch (budgetOption) {
-                case 1:
-                    // Add Budget
-                    System.out.println("Add Budget");
-                    System.out.print("Enter category ID: ");
-                    categoryId = scanner.nextInt();
-                    System.out.print("Enter budget amount: ");
-                    budgetAmount = scanner.nextDouble();
-                    budgetManager.addBudget(categoryId, budgetAmount);
-                    break;
-                case 2:
-                    // Edit Budget
-                    System.out.println("Edit Budget");
-                    System.out.print("Enter category ID:");
-                    categoryId = scanner.nextInt();
-                    System.out.print("Enter budget amount:");
-                    budgetAmount = scanner.nextDouble();
-                    budgetManager.setBudgetAmount(categoryId, budgetAmount);
-                    break;
-                case 3:
-                    // Remove Budget
-                    System.out.println("Remove Budget");
-                    System.out.print("Enter category ID:");
-                    categoryId = scanner.nextInt();
-                    budgetManager.removeBudget(categoryId);
-                    break;
-                case 4:
-                    // View Budgets
-                    System.out.println("View Budgets");
-                    Util.printList(budgetManager.getBudgets());
-                    break;
-                case 5:
-                    // Back
-                    return;
-                default:
-                    System.out.println(Constants.INVALID_OPTION);
             }
         }
     }
