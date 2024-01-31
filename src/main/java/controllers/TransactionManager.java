@@ -182,13 +182,13 @@ public class TransactionManager {
         }
     }
 
-    public String getPrintableTransactionList(String what, int id) {
+    public String getPrintableTransactionList(String filter, int id) {
         List<Transaction> transactionsList = null;
-        if (what.equals("all")) {
+        if (filter.equals("all")) {
             transactionsList = transactionDbService.getAllTransactions();
-        } else if (what.equals("filter-category") && id > 0) {
+        } else if (filter.equals("filter-category") && id > 0) {
             transactionsList = transactionDbService.getTransactionsByCategoryId(id);
-        } else if (what.equals("filter-type")) {
+        } else if (filter.equals("filter-type")) {
             if (id == 1) {
                 transactionsList = transactionDbService.getTransactionsByType(TransactionType.Income);
             } else {

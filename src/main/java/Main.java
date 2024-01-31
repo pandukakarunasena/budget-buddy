@@ -72,7 +72,7 @@ public class Main {
         }
     }
 
-    public static void viewCategories() {
+    private static void viewCategories() {
         CategoryManager categoryManager = new CategoryManager();
 
         try {
@@ -85,7 +85,7 @@ public class Main {
         }
     }
 
-    public static void findCategory() {
+    private static void findCategory() {
         CategoryManager categoryManager = new CategoryManager();
 
         try {
@@ -139,7 +139,7 @@ public class Main {
         }
     }
 
-    public static void removeCategory() {
+    private static void removeCategory() {
         CategoryManager categoryManager = new CategoryManager();
         TransactionManager transactionManager = new TransactionManager();
         int categoryId = 0;
