@@ -38,7 +38,7 @@ public class CategoryDbService {
         }
     }
 
-    public CategoryDbService() {
+    private CategoryDbService() {
         initializeDataFile();
         this.objectMapper = new ObjectMapper();
     }
@@ -108,6 +108,11 @@ public class CategoryDbService {
     public synchronized void removeCategoryById(int categoryId) {
         List<Category> categories = getAllCategories();
         categories.removeIf(category -> category.getCategoryId() == categoryId);
+        addAllCategories(categories);
+    }
+
+    public synchronized void removeAllCategories() {
+        List<Category> categories = new ArrayList<>();
         addAllCategories(categories);
     }
 }
