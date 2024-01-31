@@ -1,9 +1,8 @@
 /**
  * This class is used to manage Transactions.
  */
-package services;
+package controllers;
 
-import constants.Constants;
 import constants.TransactionType;
 import model.Transaction;
 

@@ -1,7 +1,7 @@
 /**
  * This class is used to manage and store the Budgets.
  */
-package services;
+package controllers;
 
 import constants.Constants;
 import model.Budget;
