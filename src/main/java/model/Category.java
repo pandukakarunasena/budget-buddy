@@ -3,6 +3,8 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import constants.TransactionType;
 
 public class Category {
@@ -18,7 +20,11 @@ public class Category {
      * @param categoryId     Category ID
      * @param categoryName   Category Name
      */
-    public Category(int categoryId, String categoryName) {
+
+    @JsonCreator
+    public Category(
+            @JsonProperty("categoryId") int categoryId,
+            @JsonProperty("categoryName") String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
