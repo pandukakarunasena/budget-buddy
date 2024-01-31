@@ -12,35 +12,35 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CategoryDbServiceTest {
+class CategoryDbServiceImplTest {
 
 
     @BeforeEach
     void setup() {
 
-        CategoryDbService.getInstance().removeAllCategories();
+        CategoryDbServiceImpl.getInstance().removeAllCategories();
     }
 
     @AfterEach
     void cleanCategoryList() {
 
-        CategoryDbService.getInstance().removeAllCategories();
+        CategoryDbServiceImpl.getInstance().removeAllCategories();
     }
 
     @Test
-    @DisplayName("Check class type of the CategoryDbService")
+    @DisplayName("Check class type of the CategoryDbServiceImpl")
     void getInstanceCheckClassType() {
 
-        CategoryDbService categoryDbService = CategoryDbService.getInstance();
-        assertEquals(CategoryDbService.class.getName(), categoryDbService.getClass().getName());
+        CategoryDbService categoryDbService = CategoryDbServiceImpl.getInstance();
+        assertEquals(CategoryDbServiceImpl.class.getName(), categoryDbService.getClass().getName());
     }
 
     @Test
     @DisplayName("Check if a single object of CategoryDBService is present")
     void getInstanceCheckSingleton() {
 
-        CategoryDbService categoryDbService1 = CategoryDbService.getInstance();
-        CategoryDbService categoryDbService2 = CategoryDbService.getInstance();
+        CategoryDbService categoryDbService1 = CategoryDbServiceImpl.getInstance();
+        CategoryDbService categoryDbService2 = CategoryDbServiceImpl.getInstance();
         assertEquals(categoryDbService1, categoryDbService2);
     }
 
@@ -48,7 +48,7 @@ class CategoryDbServiceTest {
     @DisplayName("Get all categories when no categories added")
     void getAllCategoriesWhenNoCategories() {
 
-        CategoryDbService categoryDbService = CategoryDbService.getInstance();
+        CategoryDbService categoryDbService = CategoryDbServiceImpl.getInstance();
         List<Category> categoryList = categoryDbService.getAllCategories();
         assertEquals(0, categoryList.size());
     }
@@ -57,7 +57,7 @@ class CategoryDbServiceTest {
     @DisplayName("Get all categories when two categories added")
     void getAllCategoriesWhenTwoCategories() {
 
-        CategoryDbService categoryDbService = CategoryDbService.getInstance();
+        CategoryDbService categoryDbService = CategoryDbServiceImpl.getInstance();
         categoryDbService.addSingleCategory(new Category(1,"Food"));
         categoryDbService.addSingleCategory(new Category(2,"Salary"));
         List<Category> categoryList = categoryDbService.getAllCategories();
@@ -68,14 +68,14 @@ class CategoryDbServiceTest {
     @DisplayName("Check empty category list")
     void isCategoryEmpty() {
 
-        assertTrue(CategoryDbService.getInstance().isCategoryEmpty());
+        assertTrue(CategoryDbServiceImpl.getInstance().isCategoryEmpty());
     }
 
     @Test
     @DisplayName("Get Category By ID when no category available")
     void getCategoryById() {
 
-        Optional<Category> category = CategoryDbService.getInstance().getCategoryById(1);
+        Optional<Category> category = CategoryDbServiceImpl.getInstance().getCategoryById(1);
         assertFalse(category.isPresent());
     }
 
@@ -83,8 +83,8 @@ class CategoryDbServiceTest {
     @DisplayName("Get Category By ID when category is available")
     void getCategoryIdByName() {
 
-        CategoryDbService.getInstance().addSingleCategory(new Category(1, "Salary"));
-        Optional<Category> category = CategoryDbService.getInstance().getCategoryById(1);
+        CategoryDbServiceImpl.getInstance().addSingleCategory(new Category(1, "Salary"));
+        Optional<Category> category = CategoryDbServiceImpl.getInstance().getCategoryById(1);
         assertTrue(category.isPresent());
         assertEquals(1,category.get().getCategoryId());
     }
@@ -97,30 +97,30 @@ class CategoryDbServiceTest {
         categoryList.add(new Category(1, "Food"));
         categoryList.add(new Category(2, "Salary"));
 
-        CategoryDbService.getInstance().addAllCategories(categoryList);
-        assertEquals(categoryList.size(), CategoryDbService.getInstance().getAllCategories().size());
+        CategoryDbServiceImpl.getInstance().addAllCategories(categoryList);
+        assertEquals(categoryList.size(), CategoryDbServiceImpl.getInstance().getAllCategories().size());
     }
 
     @Test
     void addSingleCategory() {
 
-        CategoryDbService.getInstance().addSingleCategory(new Category(1,"Food"));
-        assertEquals("Food", CategoryDbService.getInstance().getCategoryById(1).get().getCategoryName());
+        CategoryDbServiceImpl.getInstance().addSingleCategory(new Category(1,"Food"));
+        assertEquals("Food", CategoryDbServiceImpl.getInstance().getCategoryById(1).get().getCategoryName());
     }
 
     @Test
     void updateCategory() {
 
-        CategoryDbService.getInstance().addSingleCategory(new Category(1,"Food"));
-        CategoryDbService.getInstance().updateCategory(new Category(1, "Salary"));
-        assertEquals("Salary", CategoryDbService.getInstance().getCategoryById(1).get().getCategoryName());
+        CategoryDbServiceImpl.getInstance().addSingleCategory(new Category(1,"Food"));
+        CategoryDbServiceImpl.getInstance().updateCategory(new Category(1, "Salary"));
+        assertEquals("Salary", CategoryDbServiceImpl.getInstance().getCategoryById(1).get().getCategoryName());
     }
 
     @Test
     void removeCategoryById() {
 
-        CategoryDbService.getInstance().addSingleCategory(new Category(1,"Food"));
-        CategoryDbService.getInstance().removeCategoryById(1);
-        assertEquals(0, CategoryDbService.getInstance().getAllCategories().size());
+        CategoryDbServiceImpl.getInstance().addSingleCategory(new Category(1,"Food"));
+        CategoryDbServiceImpl.getInstance().removeCategoryById(1);
+        assertEquals(0, CategoryDbServiceImpl.getInstance().getAllCategories().size());
     }
 }

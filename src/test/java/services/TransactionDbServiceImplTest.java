@@ -1,7 +1,6 @@
 package services;
 
 import constants.TransactionType;
-import model.Category;
 import model.Transaction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,34 +13,34 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TransactionDbServiceTest {
+class TransactionDbServiceImplTest {
 
     @BeforeEach
     void setup() {
 
-        TransactionDbService.getInstance().removeAllTransactions();
+        TransactionDbServiceImpl.getInstance().removeAllTransactions();
     }
 
     @AfterEach
     void cleanCategoryList() {
 
-        TransactionDbService.getInstance().removeAllTransactions();
+        TransactionDbServiceImpl.getInstance().removeAllTransactions();
     }
 
     @Test
-    @DisplayName("Check class type of the TransactionDbService")
+    @DisplayName("Check class type of the TransactionDbServiceImpl")
     void getInstanceCheckClassType() {
 
-        TransactionDbService transactionDbService = TransactionDbService.getInstance();
-        assertEquals(TransactionDbService.class.getName(), transactionDbService.getClass().getName());
+        TransactionDbService transactionDbService = TransactionDbServiceImpl.getInstance();
+        assertEquals(TransactionDbServiceImpl.class.getName(), transactionDbService.getClass().getName());
     }
 
     @Test
     @DisplayName("Check if a single object of TransactionDBService is present")
     void getInstanceCheckSingleton() {
 
-        TransactionDbService transactionDbService1 = TransactionDbService.getInstance();
-        TransactionDbService transactionDbService2 = TransactionDbService.getInstance();
+        TransactionDbService transactionDbService1 = TransactionDbServiceImpl.getInstance();
+        TransactionDbService transactionDbService2 = TransactionDbServiceImpl.getInstance();
         assertEquals(transactionDbService1, transactionDbService2);
     }
 
@@ -49,7 +48,7 @@ class TransactionDbServiceTest {
     @DisplayName("Get all transaction when no transactions added")
     void getAllCategoriesWhenNoTransactions() {
 
-        TransactionDbService transactionDbService = TransactionDbService.getInstance();
+        TransactionDbService transactionDbService = TransactionDbServiceImpl.getInstance();
         List<Transaction> transactionList = transactionDbService.getAllTransactions();
         assertEquals(0, transactionList.size());
     }
@@ -58,7 +57,7 @@ class TransactionDbServiceTest {
     @DisplayName("Get all transactions when two transactions added")
     void getAllCategoriesWhenTwoTransactions() {
 
-        TransactionDbService transactionDbService = TransactionDbService.getInstance();
+        TransactionDbService transactionDbService = TransactionDbServiceImpl.getInstance();
         transactionDbService.addSingleTransaction(
                 new Transaction(1, 300, TransactionType.Income, 1, "test", new Date()));
 
@@ -72,7 +71,7 @@ class TransactionDbServiceTest {
     @DisplayName("Check empty transaction list")
     void isCategoryEmpty() {
 
-        assertTrue(TransactionDbService.getInstance().isTransactionEmpty());
+        assertTrue(TransactionDbServiceImpl.getInstance().isTransactionEmpty());
     }
 
     @Test
@@ -81,9 +80,9 @@ class TransactionDbServiceTest {
 
         Transaction transactionToBeAdded = new Transaction(
                 1,300,TransactionType.Income,1,"test",new Date());
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
-        Transaction transactionRetrieved = TransactionDbService.getInstance().getTransactionById(1).get();
+        Transaction transactionRetrieved = TransactionDbServiceImpl.getInstance().getTransactionById(1).get();
         assertEquals(transactionToBeAdded.getTransactionId(), transactionRetrieved.getTransactionId());
     }
 
@@ -92,9 +91,9 @@ class TransactionDbServiceTest {
 
         Transaction transactionToBeAdded = new Transaction(
                 1,300,TransactionType.Income,1,"test",new Date());
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
-        List<Transaction> transactionsRetrieved = TransactionDbService.getInstance()
+        List<Transaction> transactionsRetrieved = TransactionDbServiceImpl.getInstance()
                 .getTransactionsByType(TransactionType.Income);
 
         assertEquals(1,transactionsRetrieved.size());
@@ -105,9 +104,9 @@ class TransactionDbServiceTest {
 
         Transaction transactionToBeAdded = new Transaction(
                 1,300,TransactionType.Income,1,"test",new Date());
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
-        List<Transaction> transactionsRetrieved = TransactionDbService.getInstance()
+        List<Transaction> transactionsRetrieved = TransactionDbServiceImpl.getInstance()
                 .getTransactionsByCategoryId(1);
 
         assertEquals(1,transactionsRetrieved.size());
@@ -119,9 +118,9 @@ class TransactionDbServiceTest {
         Date date = new Date();
         Transaction transactionToBeAdded = new Transaction(
                 1,300,TransactionType.Income,1,"test",date);
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
-        List<Transaction> transactionsRetrieved = TransactionDbService.getInstance()
+        List<Transaction> transactionsRetrieved = TransactionDbServiceImpl.getInstance()
                 .getTransactionsByDate(date);
 
         assertEquals(1,transactionsRetrieved.size());
@@ -138,8 +137,8 @@ class TransactionDbServiceTest {
                 2,400,TransactionType.Income,1,"test", new Date())
         );
 
-        TransactionDbService.getInstance().addAllTransactions(transactionToBeAddedList);
-        List<Transaction> transactionListRetrieved = TransactionDbService.getInstance().getAllTransactions();
+        TransactionDbServiceImpl.getInstance().addAllTransactions(transactionToBeAddedList);
+        List<Transaction> transactionListRetrieved = TransactionDbServiceImpl.getInstance().getAllTransactions();
         assertEquals(transactionToBeAddedList.size(), transactionListRetrieved.size());
     }
 
@@ -148,9 +147,9 @@ class TransactionDbServiceTest {
 
         Transaction transactionToBeAdded = new Transaction(
                 2,400,TransactionType.Income,1,"test", new Date());
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
-        Transaction transactionRetrieved = TransactionDbService.getInstance().getTransactionById(2).get();
+        Transaction transactionRetrieved = TransactionDbServiceImpl.getInstance().getTransactionById(2).get();
 
         assertEquals(transactionRetrieved.getTransactionId(), transactionToBeAdded.getTransactionId());
     }
@@ -160,15 +159,15 @@ class TransactionDbServiceTest {
 
         Transaction transactionToBeAdded = new Transaction(
                 2,400,TransactionType.Income,1,"test", new Date());
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
         Transaction transactionToBeUpdated = new Transaction(
                 2,500,TransactionType.Income,1,"test", new Date()
         );
 
-        TransactionDbService.getInstance().updateTransaction(transactionToBeUpdated);
+        TransactionDbServiceImpl.getInstance().updateTransaction(transactionToBeUpdated);
 
-        Transaction transactionRetrieved = TransactionDbService.getInstance().getTransactionById(2).get();
+        Transaction transactionRetrieved = TransactionDbServiceImpl.getInstance().getTransactionById(2).get();
 
         assertEquals(transactionToBeUpdated.getTransactionId(), transactionRetrieved.getTransactionId());
     }
@@ -178,10 +177,10 @@ class TransactionDbServiceTest {
 
         Transaction transactionToBeAdded = new Transaction(
                 2,400,TransactionType.Income,1,"test", new Date());
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
-        TransactionDbService.getInstance().removeTransactionByTransactionId(2);
-        assertTrue(TransactionDbService.getInstance().getAllTransactions().isEmpty());
+        TransactionDbServiceImpl.getInstance().removeTransactionByTransactionId(2);
+        assertTrue(TransactionDbServiceImpl.getInstance().getAllTransactions().isEmpty());
     }
 
     @Test
@@ -189,9 +188,9 @@ class TransactionDbServiceTest {
 
         Transaction transactionToBeAdded = new Transaction(
                 2,400,TransactionType.Income,1,"test", new Date());
-        TransactionDbService.getInstance().addSingleTransaction(transactionToBeAdded);
+        TransactionDbServiceImpl.getInstance().addSingleTransaction(transactionToBeAdded);
 
-        TransactionDbService.getInstance().removeTransactionsByCategoryId(1);
-        assertTrue(TransactionDbService.getInstance().getAllTransactions().isEmpty());
+        TransactionDbServiceImpl.getInstance().removeTransactionsByCategoryId(1);
+        assertTrue(TransactionDbServiceImpl.getInstance().getAllTransactions().isEmpty());
     }
 }

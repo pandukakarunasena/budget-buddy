@@ -12,34 +12,34 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BudgetDbServiceTest {
+class BudgetDbServiceImplTest {
 
     @BeforeEach
     void setup() {
 
-        BudgetDbService.getInstance().removeAllBudgets();
+        BudgetDbServiceImpl.getInstance().removeAllBudgets();
     }
 
     @AfterEach
     void cleanCategoryList() {
 
-        BudgetDbService.getInstance().removeAllBudgets();
+        BudgetDbServiceImpl.getInstance().removeAllBudgets();
     }
 
     @Test
-    @DisplayName("Check class type of the BudgetDbService")
+    @DisplayName("Check class type of the BudgetDbServiceImpl")
     void getInstanceCheckClassType() {
 
-        BudgetDbService budgetDbService = BudgetDbService.getInstance();
-        assertEquals(BudgetDbService.class.getName(), budgetDbService.getClass().getName());
+        BudgetDbService budgetDbService = BudgetDbServiceImpl.getInstance();
+        assertEquals(BudgetDbServiceImpl.class.getName(), budgetDbService.getClass().getName());
     }
 
     @Test
     @DisplayName("Check if a single object of BudgetDBService is present")
     void getInstanceCheckSingleton() {
 
-        BudgetDbService budgetDbService1= BudgetDbService.getInstance();
-        BudgetDbService budgetDbService2 = BudgetDbService.getInstance();
+        BudgetDbService budgetDbService1= BudgetDbServiceImpl.getInstance();
+        BudgetDbService budgetDbService2 = BudgetDbServiceImpl.getInstance();
         assertEquals(budgetDbService1, budgetDbService2);
     }
 
@@ -47,7 +47,7 @@ class BudgetDbServiceTest {
     @DisplayName("Get all Budget when no Budgets added")
     void getAllBudgetsWhenNoBudgets() {
 
-        BudgetDbService budgetDbService = BudgetDbService.getInstance();
+        BudgetDbService budgetDbService = BudgetDbServiceImpl.getInstance();
         List<Budget> BudgetList = budgetDbService.getAllBudgets();
         assertEquals(0, BudgetList.size());
     }
@@ -56,7 +56,7 @@ class BudgetDbServiceTest {
     @DisplayName("Get all Budgets when two Budgets added")
     void getAllBudgetsWhenTwoBudgets() {
 
-        BudgetDbService budgetDbService = BudgetDbService.getInstance();
+        BudgetDbService budgetDbService = BudgetDbServiceImpl.getInstance();
         budgetDbService.addSingleBudget(new Budget(1,1,Month.April, 5000));
         budgetDbService.addSingleBudget(new Budget(1,1,Month.April, 5000));
         assertEquals(2, budgetDbService.getAllBudgets().size());
@@ -66,7 +66,7 @@ class BudgetDbServiceTest {
     @DisplayName("Check empty Budget list")
     void isCategoryEmpty() {
 
-        assertTrue(BudgetDbService.getInstance().isBudgetEmpty());
+        assertTrue(BudgetDbServiceImpl.getInstance().isBudgetEmpty());
     }
 
     @Test
@@ -74,9 +74,9 @@ class BudgetDbServiceTest {
     void getBudgetById() {
 
         Budget BudgetToBeAdded = new Budget(1,1,Month.April, 5000);
-        BudgetDbService.getInstance().addSingleBudget(BudgetToBeAdded);
+        BudgetDbServiceImpl.getInstance().addSingleBudget(BudgetToBeAdded);
 
-        Budget BudgetRetrieved = BudgetDbService.getInstance().getBudgetById(1).get();
+        Budget BudgetRetrieved = BudgetDbServiceImpl.getInstance().getBudgetById(1).get();
         assertEquals(BudgetToBeAdded.getBudgetId(), BudgetRetrieved.getBudgetId());
     }
 
@@ -85,9 +85,9 @@ class BudgetDbServiceTest {
     void getBudgetsByCategoryId() {
 
         Budget BudgetToBeAdded = new Budget(1,1,Month.April, 5000);
-        BudgetDbService.getInstance().addSingleBudget(BudgetToBeAdded);
+        BudgetDbServiceImpl.getInstance().addSingleBudget(BudgetToBeAdded);
 
-        List<Budget> BudgetsRetrieved = BudgetDbService.getInstance().getBudgetsByCategoryId(1);
+        List<Budget> BudgetsRetrieved = BudgetDbServiceImpl.getInstance().getBudgetsByCategoryId(1);
 
         assertEquals(1,BudgetsRetrieved.size());
     }
@@ -96,9 +96,9 @@ class BudgetDbServiceTest {
     void getBudgetsByMonth() {
 
         Budget BudgetToBeAdded = new Budget(1,1,Month.April, 5000);
-        BudgetDbService.getInstance().addSingleBudget(BudgetToBeAdded);
+        BudgetDbServiceImpl.getInstance().addSingleBudget(BudgetToBeAdded);
 
-        List<Budget> BudgetsRetrieved = BudgetDbService.getInstance().getBudgetsByMonth(Month.April);
+        List<Budget> BudgetsRetrieved = BudgetDbServiceImpl.getInstance().getBudgetsByMonth(Month.April);
 
         assertEquals(1,BudgetsRetrieved.size());
     }
@@ -110,8 +110,8 @@ class BudgetDbServiceTest {
         BudgetToBeAddedList.add(new Budget(1,1,Month.April, 5000));
         BudgetToBeAddedList.add(new Budget(1,1,Month.April, 5000));
 
-        BudgetDbService.getInstance().addAllBudgets(BudgetToBeAddedList);
-        List<Budget> BudgetListRetrieved = BudgetDbService.getInstance().getAllBudgets();
+        BudgetDbServiceImpl.getInstance().addAllBudgets(BudgetToBeAddedList);
+        List<Budget> BudgetListRetrieved = BudgetDbServiceImpl.getInstance().getAllBudgets();
         assertEquals(BudgetToBeAddedList.size(), BudgetListRetrieved.size());
     }
 
@@ -119,9 +119,9 @@ class BudgetDbServiceTest {
     void addSingleBudget() {
 
         Budget budgetToBeAdded = new Budget(1,1,Month.April, 5000);
-        BudgetDbService.getInstance().addSingleBudget(budgetToBeAdded);
+        BudgetDbServiceImpl.getInstance().addSingleBudget(budgetToBeAdded);
 
-        Budget budgetRetrieved = BudgetDbService.getInstance().getBudgetById(1).get();
+        Budget budgetRetrieved = BudgetDbServiceImpl.getInstance().getBudgetById(1).get();
 
         assertEquals(budgetRetrieved.getBudgetId(), budgetToBeAdded.getBudgetId());
     }
@@ -130,13 +130,13 @@ class BudgetDbServiceTest {
     void updateBudget() {
 
         Budget BudgetToBeAdded = new Budget(1,1,Month.April, 5000);
-        BudgetDbService.getInstance().addSingleBudget(BudgetToBeAdded);
+        BudgetDbServiceImpl.getInstance().addSingleBudget(BudgetToBeAdded);
 
         Budget BudgetToBeUpdated = new Budget(1,1,Month.April, 5000);
 
-        BudgetDbService.getInstance().updateBudget(BudgetToBeUpdated);
+        BudgetDbServiceImpl.getInstance().updateBudget(BudgetToBeUpdated);
 
-        Budget BudgetRetrieved = BudgetDbService.getInstance().getBudgetById(1).get();
+        Budget BudgetRetrieved = BudgetDbServiceImpl.getInstance().getBudgetById(1).get();
 
         assertEquals(BudgetToBeUpdated.getBudgetId(), BudgetRetrieved.getBudgetId());
     }
@@ -145,19 +145,19 @@ class BudgetDbServiceTest {
     void removeBudgetByBudgetId() {
 
         Budget BudgetToBeAdded = new Budget(1,1,Month.April, 5000);
-        BudgetDbService.getInstance().addSingleBudget(BudgetToBeAdded);
+        BudgetDbServiceImpl.getInstance().addSingleBudget(BudgetToBeAdded);
 
-        BudgetDbService.getInstance().removeBudgetByBudgetId(1);
-        assertTrue(BudgetDbService.getInstance().getAllBudgets().isEmpty());
+        BudgetDbServiceImpl.getInstance().removeBudgetByBudgetId(1);
+        assertTrue(BudgetDbServiceImpl.getInstance().getAllBudgets().isEmpty());
     }
 
     @Test
     void removeBudgetsByCategoryId() {
 
         Budget BudgetToBeAdded = new Budget(1,1,Month.April, 5000);
-        BudgetDbService.getInstance().addSingleBudget(BudgetToBeAdded);
+        BudgetDbServiceImpl.getInstance().addSingleBudget(BudgetToBeAdded);
 
-        BudgetDbService.getInstance().removeBudgetByCategoryId(1);
-        assertTrue(BudgetDbService.getInstance().getAllBudgets().isEmpty());
+        BudgetDbServiceImpl.getInstance().removeBudgetByCategoryId(1);
+        assertTrue(BudgetDbServiceImpl.getInstance().getAllBudgets().isEmpty());
     }
 }
