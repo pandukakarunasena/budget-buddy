@@ -7,7 +7,6 @@ import model.Transaction;
 import controllers.BudgetManager;
 import controllers.CategoryManager;
 import controllers.TransactionManager;
-import util.Util;
 
 import java.util.List;
 import java.util.Scanner;
