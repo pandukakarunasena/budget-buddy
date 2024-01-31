@@ -180,13 +180,13 @@ public class BudgetManager {
         }
     }
 
-    public String getPrintableBudgetList(String what, int id, Month month) {
+    public String getPrintableBudgetList(String filter, int id, Month month) {
         List<Budget> budgetList = null;
-        if (what.equals("all")) {
+        if (filter.equals("all")) {
             budgetList = budgetDbService.getAllBudgets();
-        } else if (what.equals("filter-category") && id > 0) {
+        } else if (filter.equals("filter-category") && id > 0) {
             budgetList = budgetDbService.getBudgetsByCategoryId(id);
-        } else if (what.equals("filter-month")) {
+        } else if (filter.equals("filter-month")) {
             budgetList = budgetDbService.getBudgetsByMonth(month);
         } else {
             throw new IllegalArgumentException(Constants.ERROR_MESSAGE_PRINTABLE_BUDGET_LIST_DOES_NOT_EXIST);

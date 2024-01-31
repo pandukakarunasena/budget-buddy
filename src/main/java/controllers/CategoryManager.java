@@ -108,9 +108,9 @@ public class CategoryManager {
         }
     }
 
-    public String getPrintableCategoryList(String what) {
+    public String getPrintableCategoryList(String filter) {
         List<Category> categoryList;
-        if (what.equals("all")) {
+        if (filter.equals("all")) {
             categoryList = categoryDbService.getAllCategories();
         } else {
             throw new IllegalArgumentException(Constants.ERROR_MESSAGE_PRINTABLE_CATEGORY_LIST_DOES_NOT_EXIST);
