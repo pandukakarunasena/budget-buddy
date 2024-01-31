@@ -229,5 +229,13 @@ public class BudgetManagerImpl implements BudgetManager {
             throw new IllegalArgumentException(Constants.ERROR_MESSAGE_EMPTY_BUDGET);
         }
     }
-}
 
+    public boolean doesExpensesExceedBudget(int categoryId, Month month, double totalExpenses) {
+        List<Budget> budgets = budgetDbService.getBudgetsByCategoryIdAndMonth(categoryId, month);
+        if (budgets.size() == 1) {
+            return totalExpenses > budgets.get(0).getBudgetAmount();
+        } else {
+            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_BUDGET_NO_EXIST);
+        }
+    }
+}
