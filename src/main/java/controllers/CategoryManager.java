@@ -108,8 +108,13 @@ public class CategoryManager {
         }
     }
 
-    public String getPrintableCategoryList() {
-        List<Category> categoryList = categoryDbService.getAllCategories();
+    public String getPrintableCategoryList(String what) {
+        List<Category> categoryList;
+        if (what.equals("all")) {
+            categoryList = categoryDbService.getAllCategories();
+        } else {
+            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_PRINTABLE_CATEGORY_LIST_DOES_NOT_EXIST);
+        }
 
         if (categoryList != null && !categoryList.isEmpty()) {
             StringBuilder result = new StringBuilder();
@@ -127,6 +132,5 @@ public class CategoryManager {
             throw new IllegalArgumentException(Constants.ERROR_MESSAGE_EMPTY_CATEGORY);
         }
     }
-
 }
 

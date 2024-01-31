@@ -3,6 +3,8 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import constants.TransactionType;
 
 import java.util.Date;
@@ -36,7 +38,14 @@ public class Transaction {
      * @param note            Note
      * @param date            Date
      */
-    public Transaction(int transactionId, double amount, TransactionType transactionType, int categoryId, String note, Date date) {
+    @JsonCreator
+    public Transaction(
+            @JsonProperty("transactionId") int transactionId,
+            @JsonProperty("amount") double amount,
+            @JsonProperty("transactionType") TransactionType transactionType,
+            @JsonProperty("categoryId") int categoryId,
+            @JsonProperty("note") String note,
+            @JsonProperty("date") Date date) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionType = transactionType;

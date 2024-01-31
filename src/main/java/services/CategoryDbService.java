@@ -13,8 +13,6 @@ import java.util.Optional;
 public class CategoryDbService {
     private final String folderPath = "src/main/java/db/";
     private final String categoryFilePath = "category.json";
-    private final String transactionFilePath = "transaction.json";
-    private final String budgetFilePath = "budget.json";
     private final ObjectMapper objectMapper;
     private volatile static CategoryDbService instance;
 
@@ -29,22 +27,19 @@ public class CategoryDbService {
         return instance;
     }
 
-    private void initializeDataFiles() {
-        String[] files = {categoryFilePath, transactionFilePath, budgetFilePath};
-        for (String fileName : files) {
-            File file = new File(folderPath, fileName);
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    private void initializeDataFile() {
+        File file = new File(folderPath, categoryFilePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
     public CategoryDbService() {
-        initializeDataFiles();
+        initializeDataFile();
         this.objectMapper = new ObjectMapper();
     }
 
