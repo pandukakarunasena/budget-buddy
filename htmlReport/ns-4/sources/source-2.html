@@ -1,0 +1,249 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CategoryManagerImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: CategoryManagerImpl (controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CategoryManagerImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/61)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * This class is responsible for managing the categories.
+&nbsp; */
+&nbsp;package controllers;
+&nbsp;
+&nbsp;import constants.Constants;
+&nbsp;import model.Category;
+&nbsp;import services.CategoryDbService;
+&nbsp;import services.CategoryDbServiceImpl;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.concurrent.atomic.AtomicInteger;
+&nbsp;
+&nbsp;public class CategoryManagerImpl implements CategoryManager {
+&nbsp;    private final CategoryDbService categoryDbService;
+&nbsp;    private final AtomicInteger lastCategoryId;
+&nbsp;
+<b class="nc">&nbsp;    public CategoryManagerImpl() {</b>
+<b class="nc">&nbsp;        this.categoryDbService = CategoryDbServiceImpl.getInstance();</b>
+<b class="nc">&nbsp;        this.lastCategoryId = new AtomicInteger(getMaxCategoryId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int getMaxCategoryId() {
+<b class="nc">&nbsp;        List&lt;Category&gt; categoryList = categoryDbService.getAllCategories();</b>
+<b class="nc">&nbsp;        return categoryList.stream()</b>
+<b class="nc">&nbsp;                .mapToInt(Category::getCategoryId)</b>
+<b class="nc">&nbsp;                .max()</b>
+<b class="nc">&nbsp;                .orElse(0);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Category&gt; getCategoryList() {
+<b class="nc">&nbsp;        List&lt;Category&gt; categoryList = categoryDbService.getAllCategories();</b>
+<b class="nc">&nbsp;        if (categoryList != null &amp;&amp; !categoryList.isEmpty()) {</b>
+<b class="nc">&nbsp;            return categoryList;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_EMPTY_CATEGORY);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isCategoryNotEmpty() {
+<b class="nc">&nbsp;        if (!categoryDbService.isCategoryEmpty()) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_EMPTY_CATEGORY);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Category getCategoryById(int categoryId) {
+<b class="nc">&nbsp;        Optional&lt;Category&gt; optionalCategory = categoryDbService.getCategoryById(categoryId);</b>
+<b class="nc">&nbsp;        if (optionalCategory.isPresent()) {</b>
+<b class="nc">&nbsp;            return optionalCategory.get();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID + categoryId);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Category getCategoryByName(String categoryName) {
+<b class="nc">&nbsp;        Optional&lt;Integer&gt; categoryIdOptional = categoryDbService.getCategoryIdByName(categoryName);</b>
+<b class="nc">&nbsp;        if (categoryIdOptional.isPresent()) {</b>
+<b class="nc">&nbsp;            Category category = new Category(categoryIdOptional.get(), categoryName);</b>
+<b class="nc">&nbsp;            return category;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_NAME + categoryName);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isCategoryExistingById(int categoryId) {
+&nbsp;        try {
+<b class="nc">&nbsp;            Category returnedCategory = getCategoryById(categoryId);</b>
+<b class="nc">&nbsp;            return true;</b>
+<b class="nc">&nbsp;        } catch (IllegalArgumentException e) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addCategory(String categoryName) {
+<b class="nc">&nbsp;        Optional&lt;Integer&gt; categoryIdOptional = categoryDbService.getCategoryIdByName(categoryName);</b>
+<b class="nc">&nbsp;        if (!categoryIdOptional.isPresent()) {</b>
+<b class="nc">&nbsp;            int newCategoryId = lastCategoryId.incrementAndGet();</b>
+<b class="nc">&nbsp;            Category category = new Category(newCategoryId, categoryName);</b>
+<b class="nc">&nbsp;            categoryDbService.addSingleCategory(category);</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            int categoryId = categoryIdOptional.get();</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_FOUND_BY_NAME + categoryName);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void updateCategory(int categoryId, String categoryName) {
+<b class="nc">&nbsp;        if (this.isCategoryNotEmpty()) {</b>
+<b class="nc">&nbsp;            Category category = getCategoryById(categoryId);</b>
+<b class="nc">&nbsp;            if (category != null) {</b>
+<b class="nc">&nbsp;                category.setCategoryName(categoryName);</b>
+<b class="nc">&nbsp;                categoryDbService.updateCategory(category);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID + categoryId);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_EMPTY_CATEGORY);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void removeCategory(int categoryId) {
+<b class="nc">&nbsp;        if (isCategoryExistingById(categoryId)) {</b>
+<b class="nc">&nbsp;            categoryDbService.removeCategoryById(categoryId);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID + categoryId);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getPrintableCategoryList(String filter) {
+&nbsp;        List&lt;Category&gt; categoryList;
+<b class="nc">&nbsp;        if (filter.equals(&quot;all&quot;)) {</b>
+<b class="nc">&nbsp;            categoryList = categoryDbService.getAllCategories();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_PRINTABLE_CATEGORY_LIST_DOES_NOT_EXIST);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (categoryList != null &amp;&amp; !categoryList.isEmpty()) {</b>
+<b class="nc">&nbsp;            StringBuilder result = new StringBuilder();</b>
+<b class="nc">&nbsp;            result.append(&quot;Category ID\tCategory Name\n&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            for (Category category : categoryList) {</b>
+<b class="nc">&nbsp;                result.append(category.getCategoryId())</b>
+<b class="nc">&nbsp;                        .append(&quot;\t\t&quot;)</b>
+<b class="nc">&nbsp;                        .append(category.getCategoryName())</b>
+<b class="nc">&nbsp;                        .append(&quot;\n&quot;);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;            return result.toString();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_EMPTY_CATEGORY);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-01 21:58</div>
+</div>
+</body>
+</html>
