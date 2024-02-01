@@ -1,0 +1,111 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TransactionManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: TransactionManager (controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">TransactionManager</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package controllers;
+&nbsp;
+&nbsp;import constants.TransactionType;
+&nbsp;import model.Transaction;
+&nbsp;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface TransactionManager {
+&nbsp;    List&lt;Transaction&gt; getTransactionList();
+&nbsp;
+&nbsp;    boolean isTransactionNotEmpty();
+&nbsp;
+&nbsp;    Transaction getTransactionById(int transactionId);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByAmount(double amount);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByType(TransactionType transactionType);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByNote(String note);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByDate(Date date);
+&nbsp;
+&nbsp;    boolean isTransactionExistingByTransactionId(int transactionId);
+&nbsp;
+&nbsp;    boolean isTransactionsExistingByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    boolean isTransactionsExistingByType(TransactionType transactionType);
+&nbsp;
+&nbsp;    double getTotalAmountForCategoryInCurrentMonth(int categoryId);
+&nbsp;
+&nbsp;    void addTransaction(double amount, TransactionType transactionType, int categoryId, String note);
+&nbsp;
+&nbsp;    void updateTransaction(int transactionId, double amount, TransactionType transactionType, int categoryId, String note);
+&nbsp;
+&nbsp;    void removeTransactionByTransactionId(int transactionId);
+&nbsp;
+&nbsp;    void removeTransactionsByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    String getPrintableTransactionList(String filter, int id);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-01 21:58</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Constants</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">constants</a>
+</div>
+
+<h1>Coverage Summary for Class: Constants (constants)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Constants</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * Constants class contains all the constants used in the application.
+&nbsp; */
+&nbsp;package constants;
+&nbsp;
+<b class="nc">&nbsp;public class Constants {</b>
+&nbsp;    // Menu Options
+&nbsp;    public static final String MAIN_MENU = &quot;\nMain Menu \n\t 1. Categories \n\t 2. Budgets \n\t 3. Transactions \n\t 4. Expense Analysis \n\t 5. Exit \n Select an option:\t &quot;;
+&nbsp;    public static final String CATEGORY_MENU = &quot;\nCategory Menu \n\t 1. View All Categories \n\t 2. Find Category \n\t 3. Add Category \n\t 4. Update Categories \n\t 5. Remove Category \n\t 6. Back \n Select an option:\t &quot;;
+&nbsp;    public static final String BUDGET_MENU = &quot;\nBudget Menu \n\t 1. View All Budgets \n\t 2. View All Budgets of a Category \n\t 3. View All Budgets Defined for a Month \n\t 4. Specify Budget for a Category \n\t 5. Updates Budget on a Category \n\t 6. Remove Budget of a Category \n\t 7. Back \n Select an option:\t &quot;;
+&nbsp;    public static final String TRANSACTION_MENU = &quot;\nTransaction Menu \n\t 1. View All Transactions \n\t 2. View Category Specific Transactions \n\t 3. View Type Specific Transactions \n\t 4. Add Transaction \n\t 5. Update Transactions \n\t 6. Remove Transaction \n\t 7. Back \n Select an option:\t &quot;;
+&nbsp;    public static final String EXPENSE_ANALYSIS_MENU = &quot;\nExpense Analysis Menu \n\t 1. Categorical Monthly Expense Analysis \n\t 2. Back \n Select an option:\t &quot;;
+&nbsp;    public static final String INVALID_OPTION = &quot;Invalid option. Please try again.&quot;;
+&nbsp;
+&nbsp;    // Error Messages
+&nbsp;    public static final String ERROR_MESSAGE_BUDGET_NOT_FOUND = &quot;Category not found for category ID: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID = &quot;Category not found for category ID: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_NAME = &quot;Category not found for category name: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_CATEGORY_FOUND_BY_NAME = &quot;Category already existing with category name: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_EMPTY_CATEGORY = &quot;Category list empty&quot;;
+&nbsp;    public static final String ERROR_MESSAGE_PRINTABLE_CATEGORY_LIST_DOES_NOT_EXIST = &quot;No printable category list&quot;;
+&nbsp;
+&nbsp;    public static final String ERROR_MESSAGE_EMPTY_TRANSACTION = &quot;Transaction list empty&quot;;
+&nbsp;    public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_ID = &quot;Transaction not found for transaction ID: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_AMOUNT = &quot;No transaction exists for the amount: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_TYPE = &quot;No transaction exists for the type: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_CATEGORY_ID = &quot;No transaction exists for the category id: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_NOTE = &quot;No transaction exists for the note: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_TRANSACTION_NOT_FOUND_BY_DATE = &quot;No transaction exists for the date: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_PRINTABLE_TRANSACTION_LIST_DOES_NOT_EXIST = &quot;No printable transaction list&quot;;
+&nbsp;    public static final String ERROR_MESSAGE_TRANSACTIONS_EXCEED_BUDGET = &quot;Cannot add current transaction as the monthly budget would be exceeded&quot;;
+&nbsp;
+&nbsp;    public static final String ERROR_MESSAGE_EMPTY_BUDGET = &quot;Budget list empty&quot;;
+&nbsp;    public static final String ERROR_MESSAGE_BUDGETS_NOT_FOUND_BY_CATEGORY_ID = &quot;No budget exists for the category id: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_BUDGETS_NOT_FOUND_BY_MONTH = &quot;No budget defined for the month of: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_BUDGETS_NOT_FOUND_BY_AMOUNT = &quot;No budget defined with the amount of: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_BUDGET_NOT_FOUND_BY_ID = &quot;Budget not found for transaction ID: &quot;;
+&nbsp;    public static final String ERROR_MESSAGE_PRINTABLE_BUDGET_LIST_DOES_NOT_EXIST = &quot;No printable budget list&quot;;
+&nbsp;    public static final String ERROR_MESSAGE_BUDGET_ALREADY_EXIST = &quot;A separate budget already exists for category ID and month&quot;;
+&nbsp;    public static final String ERROR_MESSAGE_BUDGET_NO_EXIST = &quot;A budget does not exist for category ID and month&quot;;
+&nbsp;
+&nbsp;    public static final String TITLE_DASHES = &quot;----------------&quot;;
+&nbsp;
+&nbsp;    public static final String TITLE_VIEW_CATEGORIES = &quot;\n&quot; + TITLE_DASHES + &quot;View Categories&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_FIND_CATEGORY = &quot;\n&quot; + TITLE_DASHES + &quot;Find Category&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_REMOVE_CATEGORY = &quot;\n&quot; + TITLE_DASHES + &quot;Remove Category&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_UPDATE_CATEGORY = &quot;\n&quot; + TITLE_DASHES + &quot;Update Category&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_ADD_CATEGORY = &quot;\n&quot; + TITLE_DASHES + &quot;Add Category&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;
+&nbsp;    public static final String TITLE_VIEW_TRANSACTIONS = &quot;\n&quot; + TITLE_DASHES + &quot;View Transactions&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_VIEW_CATEGORY_SPECIFIC_TRANSACTIONS = &quot;\n&quot; + TITLE_DASHES + &quot;View Category Specific Transactions&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_VIEW_TYPE_SPECIFIC_TRANSACTIONS = &quot;\n&quot; + TITLE_DASHES + &quot;View Transaction Type Specific Transactions&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_ADD_TRANSACTION = &quot;\n&quot; + TITLE_DASHES + &quot;Add Transaction&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_UPDATE_TRANSACTION = &quot;\n&quot; + TITLE_DASHES + &quot;Update Transaction&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_REMOVE_TRANSACTION = &quot;\n&quot; + TITLE_DASHES + &quot;Remove Transaction&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;
+&nbsp;    public static final String TITLE_VIEW_BUDGETS = &quot;\n&quot; + TITLE_DASHES + &quot;View Budgets&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_VIEW_CATEGORY_SPECIFIC_BUDGETS = &quot;\n&quot; + TITLE_DASHES + &quot;View Budgets by Category&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_VIEW_MONTH_SPECIFIC_BUDGETS = &quot;\n&quot; + TITLE_DASHES + &quot;View Budgets by Month&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_SPECIFY_BUDGET_ON_CATEGORY = &quot;\n&quot; + TITLE_DASHES + &quot;Specify a Budget on a Category&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_UPDATE_BUDGET_BY_CATEGORY = &quot;\n&quot; + TITLE_DASHES + &quot;Update Budget by Category&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;    public static final String TITLE_REMOVE_BUDGET_BY_ID = &quot;\n&quot; + TITLE_DASHES + &quot;Remove Budget by ID&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;
+&nbsp;    public static final String TITLE_VIEW_CATEGORICAL_EXPENSE_ANALYSIS = &quot;\n&quot; + TITLE_DASHES + &quot;View Categorical Expense Analysis&quot; + TITLE_DASHES + &quot;\n&quot;;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-01 21:58</div>
+</div>
+</body>
+</html>

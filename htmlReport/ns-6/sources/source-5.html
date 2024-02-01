@@ -1,0 +1,107 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TransactionDbService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">services</a>
+</div>
+
+<h1>Coverage Summary for Class: TransactionDbService (services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">TransactionDbService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package services;
+&nbsp;
+&nbsp;import constants.TransactionType;
+&nbsp;import model.Transaction;
+&nbsp;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;public interface TransactionDbService {
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getAllTransactions();
+&nbsp;
+&nbsp;    boolean isTransactionEmpty();
+&nbsp;
+&nbsp;    Optional&lt;Transaction&gt; getTransactionById(int transactionId);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByAmount(double amount);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByType(TransactionType transactionType);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByNote(String note);
+&nbsp;
+&nbsp;    List&lt;Transaction&gt; getTransactionsByDate(Date date);
+&nbsp;
+&nbsp;    void addAllTransactions(List&lt;Transaction&gt; transactions);
+&nbsp;
+&nbsp;    void addSingleTransaction(Transaction transaction);
+&nbsp;
+&nbsp;    void updateTransaction(Transaction updatedTransaction);
+&nbsp;
+&nbsp;    void removeTransactionByTransactionId(int transactionId);
+&nbsp;
+&nbsp;    void removeTransactionsByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    void removeAllTransactions();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-01 21:58</div>
+</div>
+</body>
+</html>

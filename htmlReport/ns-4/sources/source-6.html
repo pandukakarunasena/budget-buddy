@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BudgetManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: BudgetManager (controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">BudgetManager</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package controllers;
+&nbsp;
+&nbsp;import constants.Month;
+&nbsp;import model.Budget;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface BudgetManager {
+&nbsp;    List&lt;Budget&gt; getBudgetList();
+&nbsp;
+&nbsp;    boolean isBudgetNotEmpty();
+&nbsp;
+&nbsp;    Budget getBudgetById(int budgetId);
+&nbsp;
+&nbsp;    boolean isBudgetExistingByBudgetId(int budgetId);
+&nbsp;
+&nbsp;    List&lt;Budget&gt; getBudgetsByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    boolean doBudgetsExistByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    List&lt;Budget&gt; getBudgetsByMonth(Month month);
+&nbsp;
+&nbsp;    boolean doBudgetsExistByMonth(Month month);
+&nbsp;
+&nbsp;    List&lt;Budget&gt; getBudgetsByAmount(double amount);
+&nbsp;
+&nbsp;    boolean doBudgetsExistByAmount(double amount);
+&nbsp;
+&nbsp;    void addBudget(int categoryId, Month month, double amount);
+&nbsp;
+&nbsp;    void updateBudget(int budgetId, int categoryId, Month month, double amount);
+&nbsp;
+&nbsp;    void removeBudgetByBudgetId(int budgetId);
+&nbsp;
+&nbsp;    void removeBudgetsByCategoryId(int categoryId);
+&nbsp;
+&nbsp;    String getPrintableBudgetList(String filter, int id, Month month);
+&nbsp;
+&nbsp;     boolean doesExpensesExceedBudget(int categoryId, Month month, double totalExpenses);
+&nbsp;
+&nbsp;    Budget getBudgetsByCategoryAndMonth(int categoryId, Month month);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-01 21:58</div>
+</div>
+</body>
+</html>

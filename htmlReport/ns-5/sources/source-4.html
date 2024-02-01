@@ -1,0 +1,270 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Transaction</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">model</a>
+</div>
+
+<h1>Coverage Summary for Class: Transaction (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Transaction</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    53.8%
+  </span>
+  <span class="absValue">
+    (7/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    68.4%
+  </span>
+  <span class="absValue">
+    (13/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * Model class for Transaction.
+&nbsp; */
+&nbsp;package model;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonCreator;
+&nbsp;import com.fasterxml.jackson.annotation.JsonProperty;
+&nbsp;import constants.TransactionType;
+&nbsp;
+&nbsp;import java.util.Date;
+&nbsp;
+&nbsp;public class Transaction {
+&nbsp;    /** Transaction ID. */
+&nbsp;    private final int transactionId;
+&nbsp;
+&nbsp;    /** Amount. */
+&nbsp;    private double amount;
+&nbsp;
+&nbsp;    /** Transaction Type. */
+&nbsp;    private TransactionType transactionType;
+&nbsp;
+&nbsp;    /** Category ID. */
+&nbsp;    private int categoryId;
+&nbsp;
+&nbsp;    /** Note. */
+&nbsp;    private String note;
+&nbsp;
+&nbsp;    /** Date. */
+&nbsp;    private Date date;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for Transaction.
+&nbsp;     *
+&nbsp;     * @param transactionId   Transaction ID
+&nbsp;     * @param amount          Amount
+&nbsp;     * @param transactionType Transaction Type
+&nbsp;     * @param categoryId      Category ID
+&nbsp;     * @param note            Note
+&nbsp;     * @param date            Date
+&nbsp;     */
+&nbsp;    @JsonCreator
+&nbsp;    public Transaction(
+&nbsp;            @JsonProperty(&quot;transactionId&quot;) int transactionId,
+&nbsp;            @JsonProperty(&quot;amount&quot;) double amount,
+&nbsp;            @JsonProperty(&quot;transactionType&quot;) TransactionType transactionType,
+&nbsp;            @JsonProperty(&quot;categoryId&quot;) int categoryId,
+&nbsp;            @JsonProperty(&quot;note&quot;) String note,
+<b class="fc">&nbsp;            @JsonProperty(&quot;date&quot;) Date date) {</b>
+<b class="fc">&nbsp;        this.transactionId = transactionId;</b>
+<b class="fc">&nbsp;        this.amount = amount;</b>
+<b class="fc">&nbsp;        this.transactionType = transactionType;</b>
+<b class="fc">&nbsp;        this.categoryId = categoryId;</b>
+<b class="fc">&nbsp;        this.note = note;</b>
+<b class="fc">&nbsp;        this.date = date;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get Transaction ID.
+&nbsp;     *
+&nbsp;     * @return Transaction ID
+&nbsp;     */
+&nbsp;    public int getTransactionId() {
+<b class="fc">&nbsp;        return transactionId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get Amount.
+&nbsp;     *
+&nbsp;     * @return Amount
+&nbsp;     */
+&nbsp;    public double getAmount() {
+<b class="fc">&nbsp;        return amount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get Transaction Type.
+&nbsp;     *
+&nbsp;     * @return Transaction Type
+&nbsp;     */
+&nbsp;    public TransactionType getTransactionType() {
+<b class="fc">&nbsp;        return transactionType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get Category ID.
+&nbsp;     *
+&nbsp;     * @return Category ID
+&nbsp;     */
+&nbsp;    public int getCategoryId() {
+<b class="fc">&nbsp;        return categoryId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get Note.
+&nbsp;     *
+&nbsp;     * @return Note
+&nbsp;     */
+&nbsp;    public String getNote() {
+<b class="fc">&nbsp;        return note;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get Date.
+&nbsp;     *
+&nbsp;     * @return Date
+&nbsp;     */
+&nbsp;    public Date getDate() {
+<b class="fc">&nbsp;        return date;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set Amount.
+&nbsp;     *
+&nbsp;     * @param amount Amount
+&nbsp;     */
+&nbsp;    public void setAmount(double amount) {
+<b class="nc">&nbsp;        this.amount = amount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set Transaction Type.
+&nbsp;     *
+&nbsp;     * @param transactionType Transaction Type
+&nbsp;     */
+&nbsp;    public void setTransactionType(TransactionType transactionType) {
+<b class="nc">&nbsp;        this.transactionType = transactionType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set Category ID.
+&nbsp;     *
+&nbsp;     * @param categoryId Category ID
+&nbsp;     */
+&nbsp;    public void setCategoryId(int categoryId) {
+<b class="nc">&nbsp;        this.categoryId = categoryId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set Note.
+&nbsp;     *
+&nbsp;     * @param note Note
+&nbsp;     */
+&nbsp;    public void setNote(String note) {
+<b class="nc">&nbsp;        this.note = note;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set Date.
+&nbsp;     *
+&nbsp;     * @param date Date
+&nbsp;     */
+&nbsp;    public void setDate(Date date) {
+<b class="nc">&nbsp;        this.date = date;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Override toString() method.
+&nbsp;     *
+&nbsp;     * @return String
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return transactionId + &quot;\t\t&quot; + amount + &quot;\t\t&quot; + transactionType + &quot;\t\t&quot; + categoryId + &quot;\t\t&quot; + note + &quot;\t\t&quot; + date;</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-01 21:58</div>
+</div>
+</body>
+</html>

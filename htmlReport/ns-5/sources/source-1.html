@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Budget</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">model</a>
+</div>
+
+<h1>Coverage Summary for Class: Budget (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Budget</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    55.6%
+  </span>
+  <span class="absValue">
+    (5/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    69.2%
+  </span>
+  <span class="absValue">
+    (9/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * Model class for Budget.
+&nbsp; */
+&nbsp;package model;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonCreator;
+&nbsp;import com.fasterxml.jackson.annotation.JsonProperty;
+&nbsp;import constants.Month;
+&nbsp;
+&nbsp;public class Budget {
+&nbsp;    private final int budgetId;
+&nbsp;    private int categoryId;
+&nbsp;    private Month month;
+&nbsp;    private double budgetAmount;
+&nbsp;
+&nbsp;    @JsonCreator
+&nbsp;    public Budget(
+&nbsp;            @JsonProperty(&quot;budgetId&quot;) int budgetId,
+&nbsp;            @JsonProperty(&quot;categoryId&quot;) int categoryId,
+&nbsp;            @JsonProperty(&quot;month&quot;) Month month,
+<b class="fc">&nbsp;            @JsonProperty(&quot;budgetAmount&quot;) double budgetAmount) {</b>
+<b class="fc">&nbsp;        this.budgetId = budgetId;</b>
+<b class="fc">&nbsp;        this.categoryId = categoryId;</b>
+<b class="fc">&nbsp;        this.month = month;</b>
+<b class="fc">&nbsp;        this.budgetAmount = budgetAmount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getBudgetId() {
+<b class="fc">&nbsp;        return budgetId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getCategoryId() {
+<b class="fc">&nbsp;        return categoryId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCategoryId(int categoryId) {
+<b class="nc">&nbsp;        this.categoryId = categoryId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Month getMonth() {
+<b class="fc">&nbsp;        return month;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setMonth(Month month) {
+<b class="nc">&nbsp;        this.month = month;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getBudgetAmount() {
+<b class="fc">&nbsp;        return budgetAmount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBudgetAmount(double budgetAmount) {
+<b class="nc">&nbsp;        this.budgetAmount = budgetAmount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return categoryId + &quot;\t\t&quot; + budgetAmount;</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-01 21:58</div>
+</div>
+</body>
+</html>
