@@ -531,10 +531,6 @@ public class Main {
                     monthlyExpenseAnalysis();
                     break;
                 case 2:
-                    // View overall expense analysis
-                    //overallExpenseAnalysis();
-                    break;
-                case 3:
                     // Back
                     return;
                 default:

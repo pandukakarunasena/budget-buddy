@@ -5,6 +5,9 @@ import java.util.Map;
 
 public class Result {
     private final Map<String, Map<String, Double>> categoricalExpenditureResults;
+    private double overallExpenditure = 0;
+    private double overallBudget = 0;
+    private double overallExpensePercentage = 0;
 
     public Result() {
         this.categoricalExpenditureResults = new HashMap<>();
@@ -15,6 +18,9 @@ public class Result {
         categoryResult.put("Total Budget", totalBudget);
         categoryResult.put("Total Expenditure", totalExpenditure);
         double expensePercentage = 0;
+
+        this.overallExpenditure += totalExpenditure;
+        this.overallBudget += totalBudget;
         if (totalBudget > 0) {
             expensePercentage = (totalExpenditure / totalBudget) * 100;
         } else if (totalBudget == 0) {
@@ -30,6 +36,9 @@ public class Result {
     }
 
     public String getFormattedResults() {
+        if (this.overallBudget > 0) {
+            this.overallExpensePercentage = (this.overallExpenditure / this.overallBudget) * 100;
+        }
         StringBuilder resultString = new StringBuilder();
 
         for (Map.Entry<String, Map<String, Double>> entry : categoricalExpenditureResults.entrySet()) {
@@ -42,6 +51,10 @@ public class Result {
 
             resultString.append("\n");
         }
+
+        resultString.append("Overall Expenditure: ").append(this.overallExpenditure).append("\n");
+        resultString.append("Overall Budget: ").append(this.overallBudget).append("\n");
+        resultString.append("Overall Expense Percentage: ").append(this.overallExpensePercentage).append("%").append("\n");
 
         return resultString.toString();
     }
