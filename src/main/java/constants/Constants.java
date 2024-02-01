@@ -9,7 +9,7 @@ public class Constants {
     public static final String CATEGORY_MENU = "\nCategory Menu \n\t 1. View All Categories \n\t 2. Find Category \n\t 3. Add Category \n\t 4. Update Categories \n\t 5. Remove Category \n\t 6. Back \n Select an option:\t ";
     public static final String BUDGET_MENU = "\nBudget Menu \n\t 1. View All Budgets \n\t 2. View All Budgets of a Category \n\t 3. View All Budgets Defined for a Month \n\t 4. Specify Budget for a Category \n\t 5. Updates Budget on a Category \n\t 6. Remove Budget of a Category \n\t 7. Back \n Select an option:\t ";
     public static final String TRANSACTION_MENU = "\nTransaction Menu \n\t 1. View All Transactions \n\t 2. View Category Specific Transactions \n\t 3. View Type Specific Transactions \n\t 4. Add Transaction \n\t 5. Update Transactions \n\t 6. Remove Transaction \n\t 7. Back \n Select an option:\t ";
-    public static final String EXPENSE_ANALYSIS_MENU = "\nExpense Analysis Menu \n\t 1. Categorical Monthly Expense Analysis \n\t 2. Overall Monthly Expense Analysis \n\t 3. Back \n Select an option:\t ";
+    public static final String EXPENSE_ANALYSIS_MENU = "\nExpense Analysis Menu \n\t 1. Categorical Monthly Expense Analysis \n\t 2. Back \n Select an option:\t ";
     public static final String INVALID_OPTION = "Invalid option. Please try again.";
 
     // Error Messages
