@@ -26,6 +26,11 @@ public class TransactionManagerImpl implements TransactionManager {
         this.lastTransactionId = new AtomicInteger(getMaxTransactionId());
     }
 
+    public TransactionManagerImpl(TransactionDbServiceImpl transactionDbService) {
+        this.transactionDbService = transactionDbService;
+        this.lastTransactionId = new AtomicInteger(getMaxTransactionId());
+    }
+
     private int getMaxTransactionId() {
         List<Transaction> transactionList = transactionDbService.getAllTransactions();
         return transactionList.stream()
