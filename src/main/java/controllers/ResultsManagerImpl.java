@@ -11,11 +11,12 @@ import services.TransactionDbServiceImpl;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ResultsManagerImpl {
+public class ResultsManagerImpl implements ResultsManager {
 
     public ResultsManagerImpl() {
     }
 
+    @Override
     public String getCategoricalAnalysis() {
         CategoryManager categoryManager = new CategoryManagerImpl();
         BudgetManager budgetManager = new BudgetManagerImpl();
