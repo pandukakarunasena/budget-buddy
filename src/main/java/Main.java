@@ -28,6 +28,9 @@ public class Main {
                     transactionMenu();
                     break;
                 case 4:
+                    expenseAnalysisMenu();
+                    break;
+                case 5:
                     System.exit(0);
                 default:
                     System.out.println(Constants.INVALID_OPTION);
@@ -139,6 +142,7 @@ public class Main {
     private static void removeCategory() {
         CategoryManager categoryManager = new CategoryManagerImpl();
         TransactionManager transactionManager = new TransactionManagerImpl();
+        BudgetManager budgetManager = new BudgetManagerImpl();
         int categoryId = 0;
         List<Category> categoryList = null;
         boolean isCategoryExist = false;
@@ -157,6 +161,9 @@ public class Main {
             System.out.println("Removing all transactions under the category");
             transactionManager.removeTransactionsByCategoryId(categoryId);
             System.out.println("Successfully removed the all transactions related to the category");
+            System.out.println("Removing all budgets under the category");
+            budgetManager.removeBudgetsByCategoryId(categoryId);
+            System.out.println("Successfully removed the all budgets related to the category");
         } catch (Exception e) {
             System.out.println("Error removing category: " + e.getMessage());
             scanner.nextLine();
@@ -509,6 +516,41 @@ public class Main {
             System.out.println("Budget removed successfully");
         } catch (Exception e) {
             System.out.println("Error updating budget: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
+
+    private static void expenseAnalysisMenu() {
+        while (true) {
+            System.out.print(Constants.EXPENSE_ANALYSIS_MENU);
+            int resultsOption = scanner.nextInt();
+
+            switch (resultsOption) {
+                case 1:
+                    // View monthly expense analysis over category
+                    monthlyExpenseAnalysis();
+                    break;
+                case 2:
+                    // View overall expense analysis
+                    //overallExpenseAnalysis();
+                    break;
+                case 3:
+                    // Back
+                    return;
+                default:
+                    System.out.println(Constants.INVALID_OPTION);
+            }
+        }
+    }
+
+    public static void monthlyExpenseAnalysis() {
+        ResultsManagerImpl resultsManager = new ResultsManagerImpl();
+
+        try {
+            System.out.println(Constants.TITLE_VIEW_CATEGORICAL_EXPENSE_ANALYSIS);
+            System.out.println(resultsManager.getCategoricalAnalysis());
+        } catch (Exception e) {
+            System.out.println("Error viewing categorical expense analysis: " + e.getMessage());
             scanner.nextLine();
         }
     }

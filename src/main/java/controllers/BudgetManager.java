@@ -37,4 +37,6 @@ public interface BudgetManager {
     String getPrintableBudgetList(String filter, int id, Month month);
 
      boolean doesExpensesExceedBudget(int categoryId, Month month, double totalExpenses);
+
+    Budget getBudgetsByCategoryAndMonth(int categoryId, Month month);
 }
