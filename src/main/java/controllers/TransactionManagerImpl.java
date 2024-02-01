@@ -3,6 +3,7 @@
  */
 package controllers;
 
+import Util.Util;
 import constants.Constants;
 import constants.Month;
 import constants.TransactionType;
@@ -153,18 +154,22 @@ public class TransactionManagerImpl implements TransactionManager {
         return localDate.getMonthValue();
     }
 
+    @Override
     public double getTotalAmountForCategoryInCurrentMonth(int categoryId) {
-        List<Transaction> transactionList = getTransactionsByCategoryId(categoryId);
+        try {
+            List<Transaction> transactionList = getTransactionsByCategoryId(categoryId);
+            int currentMonth = LocalDate.now().getMonthValue();
 
-        int currentMonth = LocalDate.now().getMonthValue();
+            double totalAmount = transactionList.stream()
+                    .filter(transaction -> getTransactionMonth(transaction) == currentMonth
+                            && transaction.getTransactionType() == TransactionType.Expense)
+                    .mapToDouble(Transaction::getAmount)
+                    .sum();
 
-        double totalAmount = transactionList.stream()
-                .filter(transaction -> getTransactionMonth(transaction) == currentMonth
-                && transaction.getTransactionType() == TransactionType.Expense)
-                .mapToDouble(Transaction::getAmount)
-                .sum();
-
-        return totalAmount;
+            return totalAmount;
+        } catch (IllegalArgumentException e) {
+            return 0;
+        }
     }
 
     @Override
@@ -175,23 +180,35 @@ public class TransactionManagerImpl implements TransactionManager {
         if (categoryManager.isCategoryExistingById(categoryId)) {
             int currentMonth = LocalDate.now().getMonthValue();
             Month[] months = Month.values();
-            Month currentMonthEnum = months[currentMonth - 1];
+            Month currentMonthEnum = Util.getCurrentMonthEnum();
 
-            double currentTotal = getTotalAmountForCategoryInCurrentMonth(categoryId);
-            double total;
-            if (transactionType == TransactionType.Expense) {
-                total = currentTotal + amount;
-            } else {
-                total = currentTotal;
+            boolean budgetExist = false;
+            try {
+                budgetManager.getBudgetsByCategoryAndMonth(categoryId, currentMonthEnum);
+                budgetExist = true;
+            } catch (IllegalArgumentException e) {
+                budgetExist = false;
             }
-            boolean exceedBudget = budgetManager.doesExpensesExceedBudget(categoryId, currentMonthEnum, total);
-            if (!exceedBudget) {
-                int newTransactionId = lastTransactionId.incrementAndGet();
-                Transaction transaction = new Transaction(newTransactionId, amount, transactionType, categoryId, note, new Date());
-                transactionDbService.addSingleTransaction(transaction);
+            int newTransactionId = lastTransactionId.incrementAndGet();
+            Transaction transaction = null;
+            if (budgetExist) {
+                if (transactionType == TransactionType.Expense) {
+                    double currentTotal = getTotalAmountForCategoryInCurrentMonth(categoryId);
+                    double total;
+                    total = currentTotal + amount;
+                    boolean exceedBudget = budgetManager.doesExpensesExceedBudget(categoryId, currentMonthEnum, total);
+                    if (!exceedBudget) {
+                        transaction = new Transaction(newTransactionId, amount, transactionType, categoryId, note, new Date());
+                    } else {
+                        throw new IllegalArgumentException(Constants.ERROR_MESSAGE_TRANSACTIONS_EXCEED_BUDGET);
+                    }
+                } else {
+                    transaction = new Transaction(newTransactionId, amount, transactionType, categoryId, note, new Date());
+                }
             } else {
-                throw new IllegalArgumentException(Constants.ERROR_MESSAGE_TRANSACTIONS_EXCEED_BUDGET);
+                transaction = new Transaction(newTransactionId, amount, transactionType, categoryId, note, new Date());
             }
+            transactionDbService.addSingleTransaction(transaction);
         } else {
             throw new IllegalArgumentException(Constants.ERROR_MESSAGE_CATEGORY_NOT_FOUND_BY_ID + categoryId);
         }

@@ -156,7 +156,16 @@ public class BudgetManagerImpl implements BudgetManager {
         if (categoryManager.isCategoryExistingById(categoryId)) {
             if (this.isBudgetNotEmpty()) {
                 List<Budget> budgets = budgetDbService.getBudgetsByCategoryIdAndMonth(categoryId, month);
-                if (budgets == null || budgets.isEmpty()) {
+                boolean matching = false;
+                if (budgets.size() == 1) {
+                    Budget existingBudgetForCatIdAndMon = budgets.get(0);
+                    if (existingBudgetForCatIdAndMon.getBudgetId() != budgetId) {
+                        throw new IllegalArgumentException(Constants.ERROR_MESSAGE_BUDGET_ALREADY_EXIST);
+                    } else {
+                        matching = true;
+                    }
+                }
+                if (budgets.isEmpty() || matching) {
                     Budget budget = getBudgetById(budgetId);
                     if (budget != null) {
                         budget.setCategoryId(categoryId);
@@ -234,6 +243,15 @@ public class BudgetManagerImpl implements BudgetManager {
         List<Budget> budgets = budgetDbService.getBudgetsByCategoryIdAndMonth(categoryId, month);
         if (budgets.size() == 1) {
             return totalExpenses > budgets.get(0).getBudgetAmount();
+        } else {
+            throw new IllegalArgumentException(Constants.ERROR_MESSAGE_BUDGET_NO_EXIST);
+        }
+    }
+
+    public Budget getBudgetsByCategoryAndMonth(int categoryId, Month month) {
+        List<Budget> budgets = budgetDbService.getBudgetsByCategoryIdAndMonth(categoryId, month);
+        if (budgets.size() == 1) {
+            return budgets.get(0);
         } else {
             throw new IllegalArgumentException(Constants.ERROR_MESSAGE_BUDGET_NO_EXIST);
         }
