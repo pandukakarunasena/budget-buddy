@@ -15,6 +15,7 @@ import services.TransactionDbServiceImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -71,103 +72,150 @@ class TransactionManagerImplTest {
         assertEquals(expectedTransactions, actualTransactions);
     }
 
-//    @Test
-//    void testIsTransactionNotEmpty() {
-//        // Add test case to check if transaction is not empty
-//    }
-//
-//    @Test
-//    void testGetTransactionById() {
-//        int transactionId = 1;
-//        Transaction expectedTransaction = new Transaction(transactionId, 100.0, TransactionType.Expense, 1, "Test Note", new Date());
-//
-//        Transaction actualTransaction = transactionManager.getTransactionById(transactionId);
-//
-//        assertEquals(expectedTransaction, actualTransaction);
-//    }
-//
-//    @Test
-//    void testGetTransactionsByAmount() {
-//        double amount = 100.0;
-//        List<Transaction> expectedTransactions = new ArrayList<>();
-//        // Add expected transactions to the list
-//
-//        List<Transaction> actualTransactions = transactionManager.getTransactionsByAmount(amount);
-//
-//        assertEquals(expectedTransactions, actualTransactions);
-//    }
-//
-//    @Test
-//    void testGetTransactionsByType() {
-//        TransactionType transactionType = TransactionType.Expense;
-//        List<Transaction> expectedTransactions = new ArrayList<>();
-//        // Add expected transactions to the list
-//
-//        List<Transaction> actualTransactions = transactionManager.getTransactionsByType(transactionType);
-//
-//        assertEquals(expectedTransactions, actualTransactions);
-//    }
-//
-//    @Test
-//    void testGetTransactionsByCategoryId() {
-//        int categoryId = 1;
-//        List<Transaction> expectedTransactions = new ArrayList<>();
-//        // Add expected transactions to the list
-//
-//        List<Transaction> actualTransactions = transactionManager.getTransactionsByCategoryId(categoryId);
-//
-//        assertEquals(expectedTransactions, actualTransactions);
-//    }
-//
-//    @Test
-//    void testGetTransactionsByNote() {
-//        String note = "Test Note";
-//        List<Transaction> expectedTransactions = new ArrayList<>();
-//        // Add expected transactions to the list
-//
-//        List<Transaction> actualTransactions = transactionManager.getTransactionsByNote(note);
-//
-//        assertEquals(expectedTransactions, actualTransactions);
-//    }
-//
-//    @Test
-//    void testGetTransactionsByDate() {
-//        Date date = new Date();
-//        List<Transaction> expectedTransactions = new ArrayList<>();
-//        // Add expected transactions to the list
-//
-//        List<Transaction> actualTransactions = transactionManager.getTransactionsByDate(date);
-//
-//        assertEquals(expectedTransactions, actualTransactions);
-//    }
-//
-//    @Test
-//    void testIsTransactionExistingByTransactionId() {
-//        int transactionId = 1;
-//
-//        boolean isExisting = transactionManager.isTransactionExistingByTransactionId(transactionId);
-//
-//        assertTrue(isExisting);
-//    }
-//
-//    @Test
-//    void testIsTransactionsExistingByCategoryId() {
-//        int categoryId = 1;
-//
-//        boolean isExisting = transactionManager.isTransactionsExistingByCategoryId(categoryId);
-//
-//        assertTrue(isExisting);
-//    }
-//
-//    @Test
-//    void testIsTransactionsExistingByType() {
-//        TransactionType transactionType = TransactionType.Expense;
-//
-//        boolean isExisting = transactionManager.isTransactionsExistingByType(transactionType);
-//
-//        assertTrue(isExisting);
-//    }
-//
+    @Test
+    void testIsTransactionNotEmpty() {
+
+        assertTrue(transactionManager.isTransactionNotEmpty());
+    }
+
+    @Test
+    void testGetTransactionById() {
+        int transactionId = 1;
+        Transaction expectedTransaction = new Transaction(transactionId, 100.0, TransactionType.Expense, 1, "Test Note", new Date());
+
+        when(transactionDbService.getTransactionById(transactionId)).thenReturn(Optional.of(expectedTransaction));
+        Transaction actualTransaction = transactionManager.getTransactionById(transactionId);
+
+        assertEquals(expectedTransaction, actualTransaction);
+    }
+
+    @Test
+    void testGetTransactionsByAmount() {
+        double amount = 100.0;
+        Transaction expectedTransaction1 = new Transaction(1, amount, TransactionType.Expense, 1, "Test Note", new Date());
+        Transaction expectedTransaction2 = new Transaction(2, amount, TransactionType.Expense, 1, "Test Note", new Date());
+        Transaction expectedTransaction3 = new Transaction(3, amount, TransactionType.Expense, 1, "Test Note", new Date());
+
+        List<Transaction> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(expectedTransaction1);
+        expectedTransactions.add(expectedTransaction2);
+        expectedTransactions.add(expectedTransaction3);
+
+        when(transactionDbService.getTransactionsByAmount(amount)).thenReturn(expectedTransactions);
+
+
+        List<Transaction> actualTransactions = transactionManager.getTransactionsByAmount(amount);
+
+        assertEquals(expectedTransactions, actualTransactions);
+    }
+
+    @Test
+    void testGetTransactionsByType() {
+        TransactionType transactionType = TransactionType.Expense;
+        List<Transaction> expectedTransactions = new ArrayList<>();
+
+        // Add expected transactions to the list
+        expectedTransactions.add(new Transaction(1, 100.0, transactionType, 1, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(2, 200.0, transactionType, 1, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(3, 300.0, transactionType, 1, "Test Note", new Date()));
+
+        when(transactionDbService.getTransactionsByType(transactionType)).thenReturn(expectedTransactions);
+        List<Transaction> actualTransactions = transactionManager.getTransactionsByType(transactionType);
+
+        assertEquals(expectedTransactions, actualTransactions);
+    }
+
+    @Test
+    void testGetTransactionsByCategoryId() {
+        int categoryId = 1;
+        List<Transaction> expectedTransactions = new ArrayList<>();
+        // Add expected transactions to the list
+        expectedTransactions.add(new Transaction(1, 100.0, TransactionType.Expense, categoryId, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(2, 200.0, TransactionType.Expense, categoryId, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(3, 300.0, TransactionType.Expense, categoryId, "Test Note", new Date()));
+
+        when(transactionDbService.getTransactionsByCategoryId(categoryId)).thenReturn(expectedTransactions);
+
+        List<Transaction> actualTransactions = transactionManager.getTransactionsByCategoryId(categoryId);
+
+        assertEquals(expectedTransactions, actualTransactions);
+    }
+
+    @Test
+    void testGetTransactionsByNote() {
+        String note = "Test Note";
+        List<Transaction> expectedTransactions = new ArrayList<>();
+        // Add expected transactions to the list
+        expectedTransactions.add(new Transaction(1, 100.0, TransactionType.Expense, 1, note, new Date()));
+        expectedTransactions.add(new Transaction(2, 200.0, TransactionType.Expense, 1, note, new Date()));
+        expectedTransactions.add(new Transaction(3, 300.0, TransactionType.Expense, 1, note, new Date()));
+
+        when(transactionDbService.getTransactionsByNote(note)).thenReturn(expectedTransactions);
+
+        List<Transaction> actualTransactions = transactionManager.getTransactionsByNote(note);
+
+        assertEquals(expectedTransactions, actualTransactions);
+    }
+
+    @Test
+    void testGetTransactionsByDate() {
+        Date date = new Date();
+        List<Transaction> expectedTransactions = new ArrayList<>();
+        // Add expected transactions to the list
+        expectedTransactions.add(new Transaction(1, 100.0, TransactionType.Expense, 1, "Test Note", date));
+        expectedTransactions.add(new Transaction(2, 200.0, TransactionType.Expense, 1, "Test Note", date));
+        expectedTransactions.add(new Transaction(3, 300.0, TransactionType.Expense, 1, "Test Note", date));
+
+        when(transactionDbService.getTransactionsByDate(date)).thenReturn(expectedTransactions);
+
+        List<Transaction> actualTransactions = transactionManager.getTransactionsByDate(date);
+
+        assertEquals(expectedTransactions, actualTransactions);
+    }
+
+    @Test
+    void testIsTransactionExistingByTransactionId() {
+        int transactionId = 1;
+        Transaction expectedTransaction = new Transaction(transactionId, 100.0, TransactionType.Expense, 1, "Test Note", new Date());
+
+        when(transactionDbService.getTransactionById(transactionId)).thenReturn(Optional.of(expectedTransaction));
+        boolean isExisting = transactionManager.isTransactionExistingByTransactionId(transactionId);
+
+        assertTrue(isExisting);
+    }
+
+    @Test
+    void testIsTransactionsExistingByCategoryId() {
+        int categoryId = 1;
+        List<Transaction> expectedTransactions = new ArrayList<>();
+        // Add expected transactions to the list
+        expectedTransactions.add(new Transaction(1, 100.0, TransactionType.Expense, categoryId, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(2, 200.0, TransactionType.Expense, categoryId, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(3, 300.0, TransactionType.Expense, categoryId, "Test Note", new Date()));
+
+        when(transactionDbService.getTransactionsByCategoryId(categoryId)).thenReturn(expectedTransactions);
+
+        boolean isExisting = transactionManager.isTransactionsExistingByCategoryId(categoryId);
+
+        assertTrue(isExisting);
+    }
+
+    @Test
+    void testIsTransactionsExistingByType() {
+        TransactionType transactionType = TransactionType.Expense;
+        List<Transaction> expectedTransactions = new ArrayList<>();
+        // Add expected transactions to the list
+        expectedTransactions.add(new Transaction(1, 100.0, transactionType, 1, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(2, 200.0, transactionType, 1, "Test Note", new Date()));
+        expectedTransactions.add(new Transaction(3, 300.0, transactionType, 1, "Test Note", new Date()));
+
+        when(transactionDbService.getTransactionsByType(transactionType)).thenReturn(expectedTransactions);
+
+        boolean isExisting = transactionManager.isTransactionsExistingByType(transactionType);
+
+        assertTrue(isExisting);
+    }
+
 //    @Test
 //    void testAddTransaction() {
 //        double amount = 100.0;
@@ -176,6 +224,18 @@ class TransactionManagerImplTest {
 //        String note = "Test Note";
 //
 //        assertDoesNotThrow(() -> transactionManager.addTransaction(amount, transactionType, categoryId, note));
+//    }
+//
+//    @Test
+//    void testAddTransactionWhenCategoryDoesNotExist() {
+//        double amount = 100.0;
+//        TransactionType transactionType = TransactionType.Expense;
+//        int categoryId = 1;
+//        String note = "Test Note";
+//
+//        when(transactionDbService.isCategoryExistingByCategoryId(categoryId)).thenReturn(false);
+//
+//        assertThrows(IllegalArgumentException.class, () -> transactionManager.addTransaction(amount, transactionType, categoryId, note));
 //    }
 //
 //    @Test
