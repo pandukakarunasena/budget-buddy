@@ -544,7 +544,7 @@ public class Main {
     }
 
     public static void monthlyExpenseAnalysis() {
-        ResultsManagerImpl resultsManager = new ResultsManagerImpl();
+        ResultsManager resultsManager = new ResultsManagerImpl();
 
         try {
             System.out.println(Constants.TITLE_VIEW_CATEGORICAL_EXPENSE_ANALYSIS);
