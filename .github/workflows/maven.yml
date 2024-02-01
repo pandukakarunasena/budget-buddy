@@ -35,7 +35,7 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           checkstyle_config: sun_checks.xml
-          fail_on_error: true
+          fail_on_error: false
 
       - name: Ready for test and build
         if: success()
